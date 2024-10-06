@@ -5,11 +5,11 @@ namespace IdleCorp.OOP.Services.EventsService
 {
     public class EventsService : IService
     {
-        private Dictionary<Type, Event> _events;
+        private Dictionary<Type, IEvent> _events;
         
         public void Init()
         {
-            _events = new Dictionary<Type, Event>();
+            _events = new Dictionary<Type, IEvent>();
         }
 
         public void Dispose()
@@ -17,21 +17,21 @@ namespace IdleCorp.OOP.Services.EventsService
             
         }
 
-        public Event GetEvent<T>() where T : Event, new()
+        public T GetEvent<T>() where T : IEvent, new()
         {
             var eventType = typeof(T);
 
             if (_events.TryGetValue(eventType, out var e)) 
-                return e;
+                return (T)e;
 
-            return Register(eventType);
+            return Register<T>(eventType);
         }
         
-        private Event Register(Type eventType)
+        private T Register<T>(Type eventType) where T : IEvent
         {
-            var e = (Event)Activator.CreateInstance(eventType);
+            var e = (IEvent)Activator.CreateInstance(eventType);
             _events.Add(eventType, e);
-            return e;
+            return (T)e;
         }
         
     }
