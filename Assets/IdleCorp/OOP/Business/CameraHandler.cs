@@ -1,6 +1,6 @@
+using IdleCorp.OOP.Business.Input.Events;
 using IdleCorp.OOP.Services;
 using IdleCorp.OOP.Services.EventsService;
-using IdleCorp.OOP.Services.EventsService.Events;
 using UnityEngine;
 
 namespace IdleCorp.OOP.Business
@@ -18,8 +18,8 @@ namespace IdleCorp.OOP.Business
         private void Start()
         {
             _centerPosition = transform.position;
-            ServiceLocator.GetService<EventsService>().GetEvent<InputDraggedEvent>().AddListener(OnCameraDragged);
-            ServiceLocator.GetService<EventsService>().GetEvent<CameraDragStoppedEvent>().AddListener(OnCameraDragStopped);
+            ServiceLocator.GetService<EventsService>().GetEvent<InputDraggedEvent>().AddListener(OnInputDragged);
+            ServiceLocator.GetService<EventsService>().GetEvent<InputDragStoppedEvent>().AddListener(OnInputDragStopped);
         }
 
         private void Update()
@@ -39,7 +39,7 @@ namespace IdleCorp.OOP.Business
                 _isRepositioning = false;
         }
 
-        private void OnCameraDragged(Vector2 dragDirection)
+        private void OnInputDragged(Vector2 dragDirection)
         {
             Vector3 moveDirection = transform.forward * dragDirection.y
                                     + transform.right * dragDirection.x;
@@ -52,7 +52,7 @@ namespace IdleCorp.OOP.Business
             transform.position += moveDirection * (moveSpeed * Time.deltaTime);
         }
 
-        private void OnCameraDragStopped()
+        private void OnInputDragStopped()
         {
             if (GetDistanceToCenter() > LIMIT_DISTANCE_TO_CENTER)
                 _isRepositioning = true;
