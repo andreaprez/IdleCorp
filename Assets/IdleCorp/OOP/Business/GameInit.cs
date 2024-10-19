@@ -6,9 +6,17 @@ namespace IdleCorp.OOP.Business
 {
     public class GameInit : MonoBehaviour
     {
+        [SerializeField]
+        private Spawner _spawner;
+
         private void Awake()
         {
             RegisterServices();
+        }
+
+        private void Start()
+        {
+            _spawner.SpawnWorld();
         }
 
         private void RegisterServices()
