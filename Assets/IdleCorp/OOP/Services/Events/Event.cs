@@ -1,6 +1,6 @@
 using System;
 
-namespace IdleCorp.OOP.Services.EventsService
+namespace IdleCorp.OOP.Services.Events
 {
     public abstract class Event : IEvent
     {

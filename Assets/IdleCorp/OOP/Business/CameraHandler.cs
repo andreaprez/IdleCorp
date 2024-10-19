@@ -1,6 +1,6 @@
 using IdleCorp.OOP.Business.Input.Events;
 using IdleCorp.OOP.Services;
-using IdleCorp.OOP.Services.EventsService;
+using IdleCorp.OOP.Services.Events;
 using UnityEngine;
 
 namespace IdleCorp.OOP.Business

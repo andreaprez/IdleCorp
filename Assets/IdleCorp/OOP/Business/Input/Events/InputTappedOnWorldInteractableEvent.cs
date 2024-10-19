@@ -1,4 +1,4 @@
-using IdleCorp.OOP.Services.EventsService;
+using IdleCorp.OOP.Services.Events;
 
 namespace IdleCorp.OOP.Business.Input.Events
 {
