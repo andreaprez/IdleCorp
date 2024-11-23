@@ -1,5 +1,7 @@
 using IdleCorp.OOP.Services;
-using IdleCorp.OOP.Services.EventsService;
+using IdleCorp.OOP.Services.UserData;
+using IdleCorp.OOP.Services.Currencies;
+using IdleCorp.OOP.Services.Events;
 using UnityEngine;
 
 namespace IdleCorp.OOP.Business
@@ -22,6 +24,8 @@ namespace IdleCorp.OOP.Business
         private void RegisterServices()
         {
             ServiceLocator.RegisterService<EventsService>(new EventsService());
+            ServiceLocator.RegisterService<UserDataService>(new UserDataService());
+            ServiceLocator.RegisterService<CurrenciesService>(new CurrenciesService());
         }
     }
 }

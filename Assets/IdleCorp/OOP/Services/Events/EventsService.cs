@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace IdleCorp.OOP.Services.EventsService
+namespace IdleCorp.OOP.Services.Events
 {
     public class EventsService : IService
     {

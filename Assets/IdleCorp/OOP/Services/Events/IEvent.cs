@@ -1,4 +1,4 @@
-namespace IdleCorp.OOP.Services.EventsService
+namespace IdleCorp.OOP.Services.Events
 {
     public interface IEvent
     {
