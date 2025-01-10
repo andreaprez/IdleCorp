@@ -6,8 +6,7 @@ namespace IdleCorp.ECS.Authoring
 {
     public class RobotAuthoring : MonoBehaviour
     { 
-        public float MovementSpeed; 
-        public float TargetReachThreshold;
+        public Transform MovementTarget;
     }
 
     public class RobotBaker : Baker<RobotAuthoring>
@@ -17,8 +16,7 @@ namespace IdleCorp.ECS.Authoring
             var entity = GetEntity(authoring, TransformUsageFlags.Dynamic);
             AddComponent(entity, new MovementComponent()
             {
-                Speed = authoring.MovementSpeed,
-                TargetReachThreshold = authoring.TargetReachThreshold
+                TargetPosition = authoring.MovementTarget.position
             });
         }
     }
