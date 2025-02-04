@@ -9,7 +9,7 @@ namespace IdleCorp.OOP.Business
     public class GameInit : MonoBehaviour
     {
         [SerializeField]
-        private Spawner _spawner;
+        private Spawner spawner;
 
         private void Awake()
         {
@@ -18,7 +18,7 @@ namespace IdleCorp.OOP.Business
 
         private void Start()
         {
-            _spawner.SpawnWorld();
+            spawner.SpawnWorld();
         }
 
         private void RegisterServices()
