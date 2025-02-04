@@ -17,7 +17,6 @@ namespace IdleCorp.OOP.Services.UserData
 
         public void Dispose()
         {
-            
         }
 
         public T GetData<T>() where T : IUserData

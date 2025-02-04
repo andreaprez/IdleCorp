@@ -13,7 +13,6 @@ namespace IdleCorp.OOP.Services.Currencies
 
         public void Dispose()
         {
-        
         }
 
         public int GetFunds()

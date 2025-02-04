@@ -14,7 +14,6 @@ namespace IdleCorp.OOP.Services.Events
 
         public void Dispose()
         {
-            
         }
 
         public T GetEvent<T>() where T : IEvent, new()
