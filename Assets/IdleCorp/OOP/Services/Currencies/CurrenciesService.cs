@@ -1,4 +1,4 @@
-using IdleCorp.OOP.Persistence.Repository;
+using IdleCorp.OOP.Persistence.Currencies;
 
 namespace IdleCorp.OOP.Services.Currencies
 {

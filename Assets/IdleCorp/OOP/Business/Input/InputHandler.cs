@@ -1,7 +1,7 @@
 using System;
-using IdleCorp.OOP.Business.Input.Events;
 using IdleCorp.OOP.Services;
 using IdleCorp.OOP.Services.Events;
+using IdleCorp.OOP.Services.Events.Input;
 using UnityEngine;
 
 namespace IdleCorp.OOP.Business.Input

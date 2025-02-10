@@ -3824,7 +3824,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3794277710041930401, guid: 910ab534f551e0d4b893152341759939, type: 3}
       propertyPath: m_Name
-      value: RobotFactory
+      value: Factory
       objectReference: {fileID: 0}
     - target: {fileID: 8645275718178489648, guid: 910ab534f551e0d4b893152341759939, type: 3}
       propertyPath: m_LocalPosition.x

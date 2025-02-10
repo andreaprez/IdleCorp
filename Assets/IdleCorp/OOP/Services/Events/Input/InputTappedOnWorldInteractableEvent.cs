@@ -1,9 +1,8 @@
-using IdleCorp.OOP.Services.Events;
+using IdleCorp.OOP.Business.Input;
 
-namespace IdleCorp.OOP.Business.Input.Events
+namespace IdleCorp.OOP.Services.Events.Input
 {
     public class InputTappedOnWorldInteractableEvent : Event<WorldInteractableTag>
     {
-        
     }
 }

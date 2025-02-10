@@ -1,7 +1,7 @@
 using System;
 using IdleCorp.OOP.Services.UserData;
 
-namespace IdleCorp.OOP.Persistence.Data
+namespace IdleCorp.OOP.Persistence.Currencies
 {
     [Serializable]
     public class CurrenciesData : IUserData

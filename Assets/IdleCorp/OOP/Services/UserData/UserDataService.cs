@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using IdleCorp.OOP.Persistence.Data;
+using IdleCorp.OOP.Persistence.Currencies;
 
 namespace IdleCorp.OOP.Services.UserData
 {

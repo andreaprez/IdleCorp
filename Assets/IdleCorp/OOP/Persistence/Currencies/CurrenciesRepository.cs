@@ -1,8 +1,7 @@
-using IdleCorp.OOP.Persistence.Data;
 using IdleCorp.OOP.Services;
 using IdleCorp.OOP.Services.UserData;
 
-namespace IdleCorp.OOP.Persistence.Repository
+namespace IdleCorp.OOP.Persistence.Currencies
 {
     public class CurrenciesRepository
     {
