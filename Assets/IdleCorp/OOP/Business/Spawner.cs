@@ -1,6 +1,7 @@
 using IdleCorp.ECS.Components;
 using IdleCorp.OOP.Services;
 using IdleCorp.OOP.Services.Events;
+using IdleCorp.OOP.Services.Events.Factory;
 using Unity.Entities;
 using UnityEngine;
 
@@ -20,7 +21,7 @@ namespace IdleCorp.OOP.Business
 
             var eventsService = ServiceLocator.GetService<EventsService>();
             //TODO: listen to events to spawn elements:
-            // eventsService.GetEvent<RobotProducedEvent>().AddListener(SpawnRobot);
+            eventsService.GetEvent<RobotProducedEvent>().AddListener(SpawnRobots);
             // eventsService.GetEvent<HangarPurchasedEvent>().AddListener(SpawnHangar);
             // eventsService.GetEvent<VehicleDeployedEvent>().AddListener(SpawnVehicle);
             // eventsService.GetEvent<ShootingStarGeneratedEvent>().AddListener(SpawnShootingStar);
