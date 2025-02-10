@@ -69,8 +69,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 8868635192474284943}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.3, y: 0.3}
-  m_AnchorMax: {x: 0.7, y: 0.7}
+  m_AnchorMin: {x: 0.25, y: 0.3}
+  m_AnchorMax: {x: 0.75, y: 0.75}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -386,7 +386,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4173977131401507440}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5659505327304927478}
+        m_TargetAssemblyTypeName: IdleCorp.OOP.Business.Factory.FactoryButton, Assembly-CSharp
+        m_MethodName: OnPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2282004749773112746
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,7 +562,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.78867924, g: 0.78867924, b: 0.78867924, a: 0.7254902}
+  m_Color: {r: 0, g: 0.27924532, b: 0.4113207, a: 0.6666667}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1309,8 +1321,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8868635192474284943}
+  - component: {fileID: 5659505327304927478}
   m_Layer: 5
-  m_Name: RobotSpawnButton
+  m_Name: FactoryButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1338,6 +1351,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 30}
   m_SizeDelta: {x: 90, y: 90}
   m_Pivot: {x: 0.5, y: 0}
+--- !u!114 &5659505327304927478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8024604943855072890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 693cb3655066fa040bddb8030e081b57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 9143136667845448030}
+  cooldownFill: {fileID: 5740100417449145995}
 --- !u!1 &8256741500132023738
 GameObject:
   m_ObjectHideFlags: 0
