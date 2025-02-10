@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using IdleCorp.OOP.Persistence.Currencies;
+using IdleCorp.OOP.Persistence.Factory;
 
 namespace IdleCorp.OOP.Services.UserData
 {
@@ -36,6 +37,7 @@ namespace IdleCorp.OOP.Services.UserData
         {
             _dataModels = new Dictionary<Type, IUserData>();
             LoadData<CurrenciesData>();
+            LoadData<FactoryData>();
         }
 
         private void LoadData<T>() where T : IUserData, new()
