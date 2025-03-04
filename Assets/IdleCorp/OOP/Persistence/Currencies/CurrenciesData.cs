@@ -18,7 +18,7 @@ namespace IdleCorp.OOP.Persistence.Currencies
 
         public sealed override IUserData SetDefaultValues()
         {
-            Funds = 20;
+            Funds = 100;
             return this;
         }
 
