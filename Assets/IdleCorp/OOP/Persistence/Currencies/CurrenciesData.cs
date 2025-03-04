@@ -21,5 +21,43 @@ namespace IdleCorp.OOP.Persistence.Currencies
             Funds = 20;
             return this;
         }
+
+        public void ModifyFunds(int amount)
+        {
+            Funds += amount;
+            if (Funds < 0) 
+                Funds = 0;
+            SaveData();
+        }
+
+        public void ModifyParts(int amount)
+        {
+            Parts += amount;
+            if (Parts < 0) 
+                Parts = 0;
+            SaveData();
+        }
+
+        public void ModifyCosmicParts(int amount)
+        {
+            CosmicParts += amount;
+            if (CosmicParts < 0) 
+                CosmicParts = 0;
+            SaveData();
+        }
+
+        public void ModifyAccumulatedCosmicParts(int amount)
+        {
+            AccumulatedCosmicParts += amount;
+            if (AccumulatedCosmicParts < 0) 
+                AccumulatedCosmicParts = 0;
+            SaveData();
+        }
+
+        public void ResetAccumulatedCosmicParts()
+        {
+            AccumulatedCosmicParts = 0;
+            SaveData();
+        }
     }
 }
