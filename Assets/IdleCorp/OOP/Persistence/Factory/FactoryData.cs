@@ -11,6 +11,7 @@ namespace IdleCorp.OOP.Persistence.Factory
         public int ProductionMaxCapacity;
         public int ProductionCurrentCapacity;
         public float ProductionRecoveryRate;
+        public int ProductionCost;
 
         public FactoryData()
         {
@@ -20,9 +21,10 @@ namespace IdleCorp.OOP.Persistence.Factory
         public sealed override IUserData SetDefaultValues()
         {
             ProductionQuantity = 1;
-            ProductionMaxCapacity = 30;
+            ProductionMaxCapacity = 20;
             ProductionCurrentCapacity = ProductionMaxCapacity;
             ProductionRecoveryRate = 0.6f;
+            ProductionCost = 5;
             return this;
         }
 
@@ -47,6 +49,12 @@ namespace IdleCorp.OOP.Persistence.Factory
         public void SetProductionRecoveryRate(float recoveryRate)
         {
             ProductionRecoveryRate = recoveryRate;
+            SaveData();
+        }
+
+        public void SetProductionCost(int cost)
+        {
+            ProductionCost = cost;
             SaveData();
         }
     }
