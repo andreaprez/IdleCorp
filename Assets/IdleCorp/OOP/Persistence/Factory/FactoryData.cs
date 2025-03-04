@@ -20,9 +20,9 @@ namespace IdleCorp.OOP.Persistence.Factory
         public IUserData SetDefaultValues()
         {
             ProductionQuantity = 1;
-            ProductionMaxCapacity = 50;
+            ProductionMaxCapacity = 30;
             ProductionCurrentCapacity = ProductionMaxCapacity;
-            ProductionRecoveryRate = 0.5f;
+            ProductionRecoveryRate = 0.6f;
             return this;
         }
 
@@ -40,7 +40,7 @@ namespace IdleCorp.OOP.Persistence.Factory
 
         public void SetProductionCurrentCapacity(int currentCapacity)
         {
-            ProductionCurrentCapacity = currentCapacity;
+            ProductionCurrentCapacity = Math.Clamp(currentCapacity, 0, ProductionMaxCapacity);
             SaveData();
         }
 
