@@ -4,7 +4,7 @@ using IdleCorp.OOP.Services.UserData;
 namespace IdleCorp.OOP.Persistence.Currencies
 {
     [Serializable]
-    public class CurrenciesData : IUserData
+    public class CurrenciesData : UserData
     {
         public int Funds;
         public int Parts;
@@ -16,7 +16,7 @@ namespace IdleCorp.OOP.Persistence.Currencies
             SetDefaultValues();
         }
 
-        public IUserData SetDefaultValues()
+        public sealed override IUserData SetDefaultValues()
         {
             Funds = 20;
             return this;

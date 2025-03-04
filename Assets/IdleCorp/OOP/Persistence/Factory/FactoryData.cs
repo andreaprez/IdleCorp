@@ -5,7 +5,7 @@ using IdleCorp.OOP.Services.UserData;
 namespace IdleCorp.OOP.Persistence.Factory
 {
     [Serializable]
-    public class FactoryData : IUserData
+    public class FactoryData : UserData
     {
         public int ProductionQuantity;
         public int ProductionMaxCapacity;
@@ -17,7 +17,7 @@ namespace IdleCorp.OOP.Persistence.Factory
             SetDefaultValues();
         }
 
-        public IUserData SetDefaultValues()
+        public sealed override IUserData SetDefaultValues()
         {
             ProductionQuantity = 1;
             ProductionMaxCapacity = 30;
@@ -48,11 +48,6 @@ namespace IdleCorp.OOP.Persistence.Factory
         {
             ProductionRecoveryRate = recoveryRate;
             SaveData();
-        }
-
-        private void SaveData()
-        {
-            ServiceLocator.GetService<UserDataService>().SaveData(this);
         }
     }
 }
