@@ -15,10 +15,10 @@ namespace IdleCorp.OOP.Business
         private void Start()
         {
             _entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-            var robotSpawnQuery = World.DefaultGameObjectInjectionWorld.EntityManager
-                .CreateEntityQuery(ComponentType.ReadOnly<RobotSpawnComponent>());
+            var robotSpawnQuery = _entityManager
+                .CreateEntityQuery(typeof(RobotSpawnComponent));
             _robotSpawnEntity = robotSpawnQuery.GetSingletonEntity();
-
+            
             var eventsService = ServiceLocator.GetService<EventsService>();
             //TODO: listen to events to spawn elements:
             eventsService.GetEvent<RobotProducedEvent>().AddListener(SpawnRobots);
