@@ -42,7 +42,7 @@ namespace IdleCorp.OOP.Services.UserData
 
         private void LoadData<T>() where T : IUserData, new()
         {
-            var data = _jsonDataHandler.ReadData<T>() ?? new T().SetDefaultValues();
+            var data = _jsonDataHandler.ReadData<T>() ?? new T();
             _dataModels[typeof(T)] = data;
         }
     }
