@@ -1,8 +1,10 @@
+using IdleCorp.OOP.Persistence.Hangars;
 using IdleCorp.OOP.Services;
 using IdleCorp.OOP.Services.UserData;
 using IdleCorp.OOP.Services.Currencies;
 using IdleCorp.OOP.Services.Events;
 using IdleCorp.OOP.Services.Factory;
+using IdleCorp.OOP.Services.Hangars;
 using UnityEngine;
 
 namespace IdleCorp.OOP.Business
@@ -11,6 +13,10 @@ namespace IdleCorp.OOP.Business
     {
         [SerializeField]
         private Spawner spawner;
+
+        [Header("Configuration")]
+        [SerializeField]
+        private HangarsConfig hangarsConfig;
 
         private void Awake()
         {
@@ -28,6 +34,7 @@ namespace IdleCorp.OOP.Business
             ServiceLocator.RegisterService<UserDataService>(new UserDataService());
             ServiceLocator.RegisterService<CurrenciesService>(new CurrenciesService());
             ServiceLocator.RegisterService<FactoryService>(new FactoryService());
+            ServiceLocator.RegisterService<HangarsService>(new HangarsService(hangarsConfig));
         }
     }
 }
