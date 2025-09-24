@@ -22,41 +22,27 @@ namespace IdleCorp.OOP.Persistence.Currencies
             return this;
         }
 
-        public void ModifyFunds(int amount)
+        public void SetFunds(int funds)
         {
-            Funds += amount;
-            if (Funds < 0) 
-                Funds = 0;
+            Funds = funds;
             SaveData();
         }
 
-        public void ModifyParts(int amount)
+        public void SetParts(int parts)
         {
-            Parts += amount;
-            if (Parts < 0) 
-                Parts = 0;
+            Parts = parts;
             SaveData();
         }
 
-        public void ModifyCosmicParts(int amount)
+        public void SetCosmicParts(int cosmicParts)
         {
-            CosmicParts += amount;
-            if (CosmicParts < 0) 
-                CosmicParts = 0;
+            CosmicParts = cosmicParts;
             SaveData();
         }
 
-        public void ModifyAccumulatedCosmicParts(int amount)
+        public void SetAccumulatedCosmicParts(int accumulatedCosmicParts)
         {
-            AccumulatedCosmicParts += amount;
-            if (AccumulatedCosmicParts < 0) 
-                AccumulatedCosmicParts = 0;
-            SaveData();
-        }
-
-        public void ResetAccumulatedCosmicParts()
-        {
-            AccumulatedCosmicParts = 0;
+            AccumulatedCosmicParts = accumulatedCosmicParts;
             SaveData();
         }
     }

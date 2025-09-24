@@ -1,6 +1,7 @@
 using IdleCorp.OOP.Persistence.Currencies;
 using IdleCorp.OOP.Persistence.Factory;
 using IdleCorp.OOP.Services;
+using IdleCorp.OOP.Services.Currencies;
 using IdleCorp.OOP.Services.Events;
 using IdleCorp.OOP.Services.Events.Factory;
 using IdleCorp.OOP.Services.UserData;
@@ -17,16 +18,16 @@ namespace IdleCorp.OOP.Business.Factory
         [SerializeField]
         private Image cooldownFill;
 
+        private CurrenciesService _currenciesService;
         private EventsService _eventsService;
         private FactoryData _factoryData;
-        private CurrenciesData _currenciesData;
         private float _cooldownTimer;
 
         private void Start()
         {
             _eventsService = ServiceLocator.GetService<EventsService>();
             _factoryData = ServiceLocator.GetService<UserDataService>().GetData<FactoryData>();
-            _currenciesData = ServiceLocator.GetService<UserDataService>().GetData<CurrenciesData>();
+            _currenciesService = ServiceLocator.GetService<CurrenciesService>();
         }
 
         private void Update()
@@ -47,13 +48,13 @@ namespace IdleCorp.OOP.Business.Factory
                 return;
             _eventsService.GetEvent<RobotProducedEvent>().Trigger(_factoryData.ProductionQuantity);
             _factoryData.SetProductionCurrentCapacity(_factoryData.ProductionCurrentCapacity - _factoryData.ProductionQuantity);
-            _currenciesData.ModifyFunds(-_factoryData.ProductionCost);
+            _currenciesService.SubtractFunds(_factoryData.ProductionCost);
         }
 
         private bool CanProduce()
         {
             return _factoryData.ProductionCurrentCapacity >= _factoryData.ProductionQuantity
-                   && _currenciesData.Funds >= _factoryData.ProductionCost;
+                   && _currenciesService.GetFunds() >= _factoryData.ProductionCost;
         }
     }
 }
