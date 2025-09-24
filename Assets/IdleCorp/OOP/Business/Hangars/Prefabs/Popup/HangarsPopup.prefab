@@ -131,7 +131,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
+  m_fontSize: 15.8
   m_fontSizeBase: 15
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -448,7 +448,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
+  m_fontSize: 15.8
   m_fontSizeBase: 15
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1082,6 +1082,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5173692998961901887, guid: b6bcf54cccf7b4d448f2595b6f6c5c99, type: 3}
+      propertyPath: m_fontSize
+      value: 27.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6113390350676598384, guid: b6bcf54cccf7b4d448f2595b6f6c5c99, type: 3}
+      propertyPath: m_fontSize
+      value: 23.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7977576327449722652, guid: b6bcf54cccf7b4d448f2595b6f6c5c99, type: 3}
+      propertyPath: m_fontSize
+      value: 19.3
+      objectReference: {fileID: 0}
     - target: {fileID: 8005441733792939958, guid: b6bcf54cccf7b4d448f2595b6f6c5c99, type: 3}
       propertyPath: m_Name
       value: HangarSlot_Built
@@ -1293,6 +1305,18 @@ PrefabInstance:
     - target: {fileID: 2107510110858524708, guid: b6bcf54cccf7b4d448f2595b6f6c5c99, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5173692998961901887, guid: b6bcf54cccf7b4d448f2595b6f6c5c99, type: 3}
+      propertyPath: m_fontSize
+      value: 27.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6113390350676598384, guid: b6bcf54cccf7b4d448f2595b6f6c5c99, type: 3}
+      propertyPath: m_fontSize
+      value: 23.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7977576327449722652, guid: b6bcf54cccf7b4d448f2595b6f6c5c99, type: 3}
+      propertyPath: m_fontSize
+      value: 19.3
       objectReference: {fileID: 0}
     - target: {fileID: 8005441733792939958, guid: b6bcf54cccf7b4d448f2595b6f6c5c99, type: 3}
       propertyPath: m_Name
