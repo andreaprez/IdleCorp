@@ -1,4 +1,6 @@
 using IdleCorp.OOP.Persistence.Hangars;
+using IdleCorp.OOP.Services.Events;
+using IdleCorp.OOP.Services.Events.Factory;
 using IdleCorp.OOP.Services.UserData;
 
 namespace IdleCorp.OOP.Services.Hangars
@@ -16,6 +18,9 @@ namespace IdleCorp.OOP.Services.Hangars
         public void Init()
         {
             _data = ServiceLocator.GetService<UserDataService>().GetData<HangarsData>();
+            
+            var eventsService = ServiceLocator.GetService<EventsService>();
+            eventsService.GetEvent<RobotProducedEvent>().AddListener(AddRobots);
         }
 
         public void Dispose()
