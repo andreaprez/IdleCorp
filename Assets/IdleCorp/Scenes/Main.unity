@@ -688,6 +688,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawner: {fileID: 2103845661}
+  hangarsConfig: {fileID: 11400000, guid: 9cacda947a1e8be4fb51c0f078e52967, type: 2}
 --- !u!4 &486452840
 Transform:
   m_ObjectHideFlags: 0
