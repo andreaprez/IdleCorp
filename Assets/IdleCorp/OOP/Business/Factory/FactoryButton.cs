@@ -1,9 +1,9 @@
-using IdleCorp.OOP.Persistence.Currencies;
 using IdleCorp.OOP.Persistence.Factory;
 using IdleCorp.OOP.Services;
 using IdleCorp.OOP.Services.Currencies;
 using IdleCorp.OOP.Services.Events;
 using IdleCorp.OOP.Services.Events.Factory;
+using IdleCorp.OOP.Services.Hangars;
 using IdleCorp.OOP.Services.UserData;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,15 +19,17 @@ namespace IdleCorp.OOP.Business.Factory
         private Image cooldownFill;
 
         private CurrenciesService _currenciesService;
+        private HangarsService _hangarsService;
         private EventsService _eventsService;
         private FactoryData _factoryData;
         private float _cooldownTimer;
 
         private void Start()
         {
+            _currenciesService = ServiceLocator.GetService<CurrenciesService>();
+            _hangarsService = ServiceLocator.GetService<HangarsService>();
             _eventsService = ServiceLocator.GetService<EventsService>();
             _factoryData = ServiceLocator.GetService<UserDataService>().GetData<FactoryData>();
-            _currenciesService = ServiceLocator.GetService<CurrenciesService>();
         }
 
         private void Update()
@@ -54,7 +56,8 @@ namespace IdleCorp.OOP.Business.Factory
         private bool CanProduce()
         {
             return _factoryData.ProductionCurrentCapacity >= _factoryData.ProductionQuantity
-                   && _currenciesService.GetFunds() >= _factoryData.ProductionCost;
+                   && _currenciesService.GetFunds() >= _factoryData.ProductionCost
+                   && _hangarsService.GetTotalFreeSpace() >= _factoryData.ProductionQuantity;
         }
     }
 }
