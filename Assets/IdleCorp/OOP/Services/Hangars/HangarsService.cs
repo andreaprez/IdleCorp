@@ -29,6 +29,17 @@ namespace IdleCorp.OOP.Services.Hangars
             _data = null;
         }
 
+        public int GetTotalFreeSpace()
+        {
+            var totalCapacity = 0;
+            foreach (var hangar in _data.Hangars)
+            {
+                var hangarConfig = _hangarsConfig.Hangars.Find(h => h.Id == hangar.Id);
+                totalCapacity += hangarConfig.Capacity;
+            }
+            return totalCapacity - _data.TotalRobotCount;
+        }
+        
         public int GetTotalRobotCount()
         {
             return _data.TotalRobotCount;
