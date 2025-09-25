@@ -2,6 +2,7 @@ using IdleCorp.OOP.Persistence.Hangars;
 using IdleCorp.OOP.Services.Events;
 using IdleCorp.OOP.Services.Events.Factory;
 using IdleCorp.OOP.Services.UserData;
+using UnityEngine;
 
 namespace IdleCorp.OOP.Services.Hangars
 {
@@ -39,22 +40,27 @@ namespace IdleCorp.OOP.Services.Hangars
             totalRobotCount += amount;
             _data.SetTotalRobotCount(totalRobotCount);
 
-            var freeSpaceInHangar = 0;
-            var hangarToAddRobots = _data.Hangars[0];
-            foreach (var hangar in _data.Hangars)
+            while (amount > 0)
             {
-                var hangarMaxCapacity = _hangarsConfig.Hangars.Find(h => h.Id == hangar.Id).Capacity;
-                var hangarFreeSpace = hangarMaxCapacity - hangar.CurrentRobotCount;
-                if (hangarFreeSpace > freeSpaceInHangar)
+                var freeSpaceInHangar = 0;
+                var hangarToAddRobots = _data.Hangars[0];
+                foreach (var hangar in _data.Hangars)
                 {
-                    freeSpaceInHangar = hangarFreeSpace;
-                    hangarToAddRobots = hangar;
+                    var hangarMaxCapacity = _hangarsConfig.Hangars.Find(h => h.Id == hangar.Id).Capacity;
+                    var hangarFreeSpace = hangarMaxCapacity - hangar.CurrentRobotCount;
+                    if (hangarFreeSpace > freeSpaceInHangar)
+                    {
+                        freeSpaceInHangar = hangarFreeSpace;
+                        hangarToAddRobots = hangar;
+                    }
                 }
-            }
 
-            var hangarRobotCount = hangarToAddRobots.CurrentRobotCount;
-            hangarRobotCount += amount;
-            ModifyHangarRobotCount(hangarToAddRobots.PositionId, hangarRobotCount);
+                var hangarRobotCount = hangarToAddRobots.CurrentRobotCount;
+                var amountToAddToThisHangar = Mathf.Min(amount, freeSpaceInHangar);
+                hangarRobotCount += amountToAddToThisHangar;
+                amount -= amountToAddToThisHangar;
+                ModifyHangarRobotCount(hangarToAddRobots.PositionId, hangarRobotCount);
+            }
         }
 
         public void BuildHangar(int positionId, int hangarId)
