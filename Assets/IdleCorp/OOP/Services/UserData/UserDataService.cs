@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using IdleCorp.OOP.Persistence.Currencies;
 using IdleCorp.OOP.Persistence.Factory;
+using IdleCorp.OOP.Persistence.Hangars;
 
 namespace IdleCorp.OOP.Services.UserData
 {
@@ -38,6 +39,7 @@ namespace IdleCorp.OOP.Services.UserData
             _dataModels = new Dictionary<Type, IUserData>();
             LoadData<CurrenciesData>();
             LoadData<FactoryData>();
+            LoadData<HangarsData>();
         }
 
         private void LoadData<T>() where T : IUserData, new()
