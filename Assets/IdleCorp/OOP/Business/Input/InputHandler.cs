@@ -18,15 +18,21 @@ namespace IdleCorp.OOP.Business.Input
         private bool _isDragging;
         private bool _isTapping;
         private int _worldInteractableLayerMask;
+        private bool _isWorldInputEnabled;
 
         private void Start()
         {
-            _eventsService = ServiceLocator.GetService<EventsService>();
+            _isWorldInputEnabled = true;
             _worldInteractableLayerMask = 1 << LayerMask.NameToLayer(WORLD_INTERACTABLE_LAYER_NAME);
+            _eventsService = ServiceLocator.GetService<EventsService>();
+            _eventsService.GetEvent<SetWorldInputEnabledEvent>().AddListener(OnWorldInputEnabledChanged);
         }
 
         private void Update()
         {
+            if (!_isWorldInputEnabled)
+                return;
+
             UpdateInputState();
             if (_isDragging)
                 HandleDrag();
@@ -73,6 +79,11 @@ namespace IdleCorp.OOP.Business.Input
                 var worldInteractable = (WorldInteractableTag)worldInteractableTag;
                 _eventsService.GetEvent<InputTappedOnWorldInteractableEvent>().Trigger(worldInteractable);
             }
+        }
+
+        private void OnWorldInputEnabledChanged(bool isEnabled)
+        {
+            _isWorldInputEnabled = isEnabled;
         }
     }
 }
