@@ -3,19 +3,22 @@ using IdleCorp.OOP.Services.UserData;
 using TMPro;
 using UnityEngine;
 
-public class RobotCountDisplay : MonoBehaviour
+namespace IdleCorp.OOP.Business.UI
 {
-    [SerializeField] private TextMeshPro robotCountText;
-
-    /*private HangarsData _hangarsData;
-
-    private void Start()
+    public class RobotCountDisplay : MonoBehaviour
     {
-        _hangarsData = ServiceLocator.GetService<UserDataService>().GetData<HangarsData>();
+        [SerializeField] private TextMeshPro robotCountText;
+
+        /*private HangarsData _hangarsData;
+
+        private void Start()
+        {
+            _hangarsData = ServiceLocator.GetService<UserDataService>().GetData<HangarsData>();
+        }
+
+        void Update()
+        {
+            robotCountText.SetText(_hangarsData.TotalRobotCount.ToString());
+        }*/
     }
-
-    void Update()
-    {
-        robotCountText.SetText(_hangarsData.TotalRobotCount.ToString());
-    }*/
 }

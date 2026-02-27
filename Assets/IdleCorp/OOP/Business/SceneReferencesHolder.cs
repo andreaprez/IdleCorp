@@ -1,19 +1,21 @@
+using IdleCorp.OOP.Business.Hangars;
 using UnityEngine;
 
-public class SceneReferencesHolder : MonoBehaviour
+namespace IdleCorp.OOP.Business
 {
-    [Header("Popups")]
-    [SerializeField]
-    public HangarsPopupView HangarsPopup;
-
-    private static SceneReferencesHolder _instance;
-    public static SceneReferencesHolder Instance => _instance;
-
-    private void Awake()
+    public class SceneReferencesHolder : MonoBehaviour
     {
-        if (_instance == null)
-            _instance = this;
-        else
-            Destroy(this);
+        [Header("Popups")] [SerializeField] public HangarsPopupView HangarsPopup;
+
+        private static SceneReferencesHolder _instance;
+        public static SceneReferencesHolder Instance => _instance;
+
+        private void Awake()
+        {
+            if (_instance == null)
+                _instance = this;
+            else
+                Destroy(this);
+        }
     }
 }
