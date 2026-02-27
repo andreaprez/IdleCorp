@@ -57,7 +57,7 @@ namespace IdleCorp.OOP.Business.Factory
         {
             return _factoryData.ProductionCurrentCapacity >= _factoryData.ProductionQuantity
                    && _currenciesService.GetFunds() >= _factoryData.ProductionCost
-                   && _hangarsService.GetTotalFreeSpace() >= _factoryData.ProductionQuantity;
+                   && _hangarsService.GetFreeSpace() >= _factoryData.ProductionQuantity;
         }
     }
 }

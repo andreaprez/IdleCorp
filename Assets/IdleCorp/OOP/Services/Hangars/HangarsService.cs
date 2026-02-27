@@ -1,6 +1,9 @@
+using IdleCorp.OOP.Business.Hangars;
+using IdleCorp.OOP.Business.UI.Scripts;
 using IdleCorp.OOP.Persistence.Hangars;
 using IdleCorp.OOP.Services.Events;
 using IdleCorp.OOP.Services.Events.Factory;
+using IdleCorp.OOP.Services.Events.Hangars;
 using IdleCorp.OOP.Services.UserData;
 using UnityEngine;
 
@@ -10,6 +13,7 @@ namespace IdleCorp.OOP.Services.Hangars
     {
         private readonly HangarsConfig _hangarsConfig;
         private HangarsData _data;
+        private IPopupPresenter _popupPresenter;
 
         public HangarsService(HangarsConfig hangarsConfig)
         {
@@ -19,9 +23,13 @@ namespace IdleCorp.OOP.Services.Hangars
         public void Init()
         {
             _data = ServiceLocator.GetService<UserDataService>().GetData<HangarsData>();
+
+            _popupPresenter = new HangarsPopupPresenter();
+            _popupPresenter.Initialize();
             
             var eventsService = ServiceLocator.GetService<EventsService>();
             eventsService.GetEvent<RobotProducedEvent>().AddListener(AddRobots);
+            eventsService.GetEvent<HangarBuiltEvent>().AddListener(HandleHangarBuilt);
         }
 
         public void Dispose()
@@ -29,23 +37,80 @@ namespace IdleCorp.OOP.Services.Hangars
             _data = null;
         }
 
-        public int GetTotalFreeSpace()
+        public int GetMaxCapacity()
         {
-            var totalCapacity = 0;
+            var maxCapacity = 0;
             foreach (var hangar in _data.Hangars)
             {
                 var hangarConfig = _hangarsConfig.Hangars.Find(h => h.Id == hangar.Id);
-                totalCapacity += hangarConfig.Capacity;
+                maxCapacity += hangarConfig.Capacity;
             }
-            return totalCapacity - _data.TotalRobotCount;
+            return maxCapacity;
         }
-        
+
         public int GetTotalRobotCount()
         {
             return _data.TotalRobotCount;
         }
 
-        public void AddRobots(int amount)
+        public int GetFreeSpace()
+        {
+            return GetMaxCapacity() - GetTotalRobotCount();
+        }
+
+        public bool IsHangarBuilt(int positionId)
+        {
+            return positionId < _data.Hangars.Count;
+        }
+
+        public int GetHangarId(int positionId)
+        {
+            if (!IsHangarBuilt(positionId))
+            {
+                return -1;
+            }
+            return _data.Hangars[positionId].Id;
+        }
+
+        public Sprite GetHangarImage(int positionId)
+        {
+            if (!IsHangarBuilt(positionId))
+            {
+                return null;
+            }
+            var hangar = _data.Hangars[positionId];
+            var hangarConfig = _hangarsConfig.Hangars.Find(h => h.Id == hangar.Id);
+            return hangarConfig.Image;
+        }
+
+        public int GetHangarMaxCapacity(int positionId)
+        {
+            if (!IsHangarBuilt(positionId))
+            {
+                return 0;
+            }
+            var hangar = _data.Hangars[positionId];
+            var hangarConfig = _hangarsConfig.Hangars.Find(h => h.Id == hangar.Id);
+            return hangarConfig.Capacity;
+        }
+
+        public int GetHangarUsedCapacity(int positionId)
+        {
+            if (!IsHangarBuilt(positionId))
+            {
+                return 0;
+            }
+            var hangarUsedCapacity = _data.Hangars[positionId].CurrentRobotCount;
+            return hangarUsedCapacity;
+        }
+
+        public void ResetHangars()
+        {
+            _data.SetTotalRobotCount(0);
+            _data.Hangars.Clear();
+        }
+
+        private void AddRobots(int amount)
         {
             var totalRobotCount = _data.TotalRobotCount;
             totalRobotCount += amount;
@@ -74,29 +139,38 @@ namespace IdleCorp.OOP.Services.Hangars
             }
         }
 
-        public void BuildHangar(int positionId, int hangarId)
+        private void HandleHangarBuilt(int positionId, int hangarId)
         {
+            if (positionId < _data.Hangars.Count)
+            {
+                ModifyHangarId(positionId, hangarId);
+            }
+            else
+            {
+                BuildHangar(positionId, hangarId);
+            }
+        }
+
+        private void BuildHangar(int positionId, int hangarId)
+        {
+            if (IsHangarBuilt(positionId))
+            {
+                return;
+            }
             var hangar = new HangarData();
             hangar.SetPositionId(positionId);
             hangar.SetId(hangarId);
             _data.AddHangar(hangar);
         }
 
-        public void ModifyHangarId(int positionId, int hangarId)
+        private void ModifyHangarId(int positionId, int hangarId)
         {
             _data.ModifyHangarId(positionId, hangarId);
         }
 
-        public void ModifyHangarRobotCount(int positionId, int hangarId)
+        private void ModifyHangarRobotCount(int positionId, int count)
         {
-            _data.ModifyHangarRobotCount(positionId, hangarId);
-        }
-
-        public void ResetHangars()
-        {
-            _data.SetTotalRobotCount(0);
-            _data.Hangars.Clear();
-            BuildHangar(0, 0);
+            _data.ModifyHangarRobotCount(positionId, count);
         }
     }
 }
