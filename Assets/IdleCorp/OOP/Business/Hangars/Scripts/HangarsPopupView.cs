@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using IdleCorp.OOP.Business.UI.Scripts;
+using IdleCorp.OOP.Business.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

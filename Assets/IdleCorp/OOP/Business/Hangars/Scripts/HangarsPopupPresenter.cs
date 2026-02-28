@@ -1,5 +1,5 @@
 using IdleCorp.OOP.Business.Input;
-using IdleCorp.OOP.Business.UI.Scripts;
+using IdleCorp.OOP.Business.UI;
 using IdleCorp.OOP.Services;
 using IdleCorp.OOP.Services.Events.Factory;
 using IdleCorp.OOP.Services.Events.Hangars;

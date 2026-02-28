@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using IdleCorp.OOP.Business.UI.Scripts;
 using UnityEngine;
 
 namespace IdleCorp.OOP.Persistence.Hangars

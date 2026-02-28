@@ -1,7 +1,7 @@
 using IdleCorp.OOP.Business.UI.Animations;
 using UnityEngine;
 
-namespace IdleCorp.OOP.Business.UI.Scripts
+namespace IdleCorp.OOP.Business.UI
 {
     public class PopupView : MonoBehaviour, IPopupView
     {

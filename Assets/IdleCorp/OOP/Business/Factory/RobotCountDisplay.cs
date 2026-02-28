@@ -3,7 +3,7 @@ using IdleCorp.OOP.Services.UserData;
 using TMPro;
 using UnityEngine;
 
-namespace IdleCorp.OOP.Business.UI
+namespace IdleCorp.OOP.Business.Factory
 {
     public class RobotCountDisplay : MonoBehaviour
     {

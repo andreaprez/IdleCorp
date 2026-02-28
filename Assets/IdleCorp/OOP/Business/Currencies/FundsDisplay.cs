@@ -4,7 +4,7 @@ using IdleCorp.OOP.Services.UserData;
 using TMPro;
 using UnityEngine;
 
-namespace IdleCorp.OOP.Business.UI.Scripts
+namespace IdleCorp.OOP.Business.UI.Currencies
 {
     public class FundsDisplay : MonoBehaviour
     {

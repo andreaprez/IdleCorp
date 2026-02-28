@@ -3,7 +3,7 @@ using IdleCorp.OOP.Services;
 using IdleCorp.OOP.Services.Events;
 using IdleCorp.OOP.Services.Events.Input;
 
-namespace IdleCorp.OOP.Business.UI.Scripts
+namespace IdleCorp.OOP.Business.UI
 {
     public abstract class PopupPresenter<TPopupModel, TPopupView> : IPopupPresenter where TPopupModel : IPopupModel where TPopupView : IPopupView
     {

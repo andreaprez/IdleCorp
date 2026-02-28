@@ -1,6 +1,6 @@
 using IdleCorp.OOP.Business.Input;
 
-namespace IdleCorp.OOP.Business.UI.Scripts
+namespace IdleCorp.OOP.Business.UI
 {
     public interface IPopupPresenter
     {

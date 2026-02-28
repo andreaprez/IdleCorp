@@ -1,4 +1,4 @@
-namespace IdleCorp.OOP.Business.UI.Scripts
+namespace IdleCorp.OOP.Business.UI
 {
     public interface IPopupView
     {
