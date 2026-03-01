@@ -44,7 +44,7 @@ namespace IdleCorp.OOP.Business.Hangars
                 hangarSlotView.UpgradeButtonPressed += HandleSlotUpgrade;
             }
 
-            EventsService.GetEvent<RobotProducedEvent>().AddListener(HandleRobotCountChanged);
+            EventsService.GetEvent<RobotCountChangedEvent>().AddListener(HandleRobotCountChanged);
             EventsService.GetEvent<HangarBuiltEvent>().AddListener(HandleHangarBuilt);
         }
 
@@ -105,7 +105,7 @@ namespace IdleCorp.OOP.Business.Hangars
                 slotModel.IsUsed.ValueChanged -= View.HangarSlots[i].SetUsed;
             }
 
-            EventsService.GetEvent<RobotProducedEvent>().RemoveListener(HandleRobotCountChanged);
+            EventsService.GetEvent<RobotCountChangedEvent>().RemoveListener(HandleRobotCountChanged);
             EventsService.GetEvent<HangarBuiltEvent>().RemoveListener(HandleHangarBuilt);
         }
 
@@ -121,7 +121,7 @@ namespace IdleCorp.OOP.Business.Hangars
             EventsService.GetEvent<OpenHangarStoreEvent>().Trigger(slotIndex, currentHangarId);
         }
 
-        private void HandleRobotCountChanged(int amountAdded)
+        private void HandleRobotCountChanged(int newCount)
         {
             UpdateModel();
         }

@@ -126,6 +126,8 @@ namespace IdleCorp.OOP.Services.Hangars
         public void ResetHangars()
         {
             _data.SetTotalRobotCount(0);
+            _eventsService.GetEvent<RobotCountChangedEvent>().Trigger(0);
+
             _data.Hangars.Clear();
         }
 
@@ -161,6 +163,8 @@ namespace IdleCorp.OOP.Services.Hangars
                 amount -= amountToAddToThisHangar;
                 ModifyHangarRobotCount(hangarToAddRobots.PositionId, hangarRobotCount);
             }
+            
+            _eventsService.GetEvent<RobotCountChangedEvent>().Trigger(totalRobotCount);
         }
 
         private void HandleHangarBuilt(int positionId, int hangarId)
