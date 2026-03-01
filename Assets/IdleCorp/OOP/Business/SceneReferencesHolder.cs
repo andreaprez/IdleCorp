@@ -5,7 +5,11 @@ namespace IdleCorp.OOP.Business
 {
     public class SceneReferencesHolder : MonoBehaviour
     {
-        [Header("Popups")] [SerializeField] public HangarsPopupView HangarsPopup;
+        [Header("Popups")] 
+        [SerializeField] 
+        public HangarsPopupView HangarsPopup;
+        [SerializeField] 
+        public HangarStorePopupView HangarStorePopup;
 
         private static SceneReferencesHolder _instance;
         public static SceneReferencesHolder Instance => _instance;
