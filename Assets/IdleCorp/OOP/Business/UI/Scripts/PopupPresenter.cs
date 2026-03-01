@@ -26,7 +26,6 @@ namespace IdleCorp.OOP.Business.UI
             SetView();
 
             EventsService = ServiceLocator.GetService<EventsService>();
-            EventsService.GetEvent<InputTappedOnWorldInteractableEvent>().AddListener(TryOpenPopup);
         }
 
         public virtual void TryOpenPopup(WorldInteractableTag worldInteractable)

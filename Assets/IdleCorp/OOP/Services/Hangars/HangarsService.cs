@@ -1,6 +1,7 @@
+using System.Collections.Generic;
 using IdleCorp.OOP.Business.Hangars;
-using IdleCorp.OOP.Business.UI;
 using IdleCorp.OOP.Persistence.Hangars;
+using IdleCorp.OOP.Services.Currencies;
 using IdleCorp.OOP.Services.Events;
 using IdleCorp.OOP.Services.Events.Factory;
 using IdleCorp.OOP.Services.Events.Hangars;
@@ -13,7 +14,12 @@ namespace IdleCorp.OOP.Services.Hangars
     {
         private readonly HangarsConfig _hangarsConfig;
         private HangarsData _data;
-        private IPopupPresenter _popupPresenter;
+
+        private HangarsPopupPresenter _mainPopupPresenter;
+        private HangarStorePopupPresenter _storePopupPresenter;
+
+        private EventsService _eventsService;
+        private CurrenciesService _currenciesService;
 
         public HangarsService(HangarsConfig hangarsConfig)
         {
@@ -24,12 +30,16 @@ namespace IdleCorp.OOP.Services.Hangars
         {
             _data = ServiceLocator.GetService<UserDataService>().GetData<HangarsData>();
 
-            _popupPresenter = new HangarsPopupPresenter();
-            _popupPresenter.Initialize();
+            _mainPopupPresenter = new HangarsPopupPresenter();
+            _mainPopupPresenter.Initialize();
+            _storePopupPresenter = new HangarStorePopupPresenter();
+            _storePopupPresenter.Initialize();
+
+            _eventsService = ServiceLocator.GetService<EventsService>();
+            _currenciesService = ServiceLocator.GetService<CurrenciesService>();
             
-            var eventsService = ServiceLocator.GetService<EventsService>();
-            eventsService.GetEvent<RobotProducedEvent>().AddListener(AddRobots);
-            eventsService.GetEvent<HangarBuiltEvent>().AddListener(HandleHangarBuilt);
+            _eventsService.GetEvent<RobotProducedEvent>().AddListener(AddRobots);
+            _eventsService.GetEvent<HangarBuiltEvent>().AddListener(HandleHangarBuilt);
         }
 
         public void Dispose()
@@ -60,25 +70,23 @@ namespace IdleCorp.OOP.Services.Hangars
 
         public bool IsHangarBuilt(int positionId)
         {
-            return positionId < _data.Hangars.Count;
+            return GetHangarByPositionId(positionId) != null;
         }
 
         public int GetHangarId(int positionId)
         {
             if (!IsHangarBuilt(positionId))
-            {
                 return -1;
-            }
-            return _data.Hangars[positionId].Id;
+
+            return GetHangarByPositionId(positionId).Id;
         }
 
         public Sprite GetHangarImage(int positionId)
         {
             if (!IsHangarBuilt(positionId))
-            {
                 return null;
-            }
-            var hangar = _data.Hangars[positionId];
+
+            var hangar = GetHangarByPositionId(positionId);
             var hangarConfig = _hangarsConfig.Hangars.Find(h => h.Id == hangar.Id);
             return hangarConfig.Image;
         }
@@ -86,10 +94,9 @@ namespace IdleCorp.OOP.Services.Hangars
         public int GetHangarMaxCapacity(int positionId)
         {
             if (!IsHangarBuilt(positionId))
-            {
                 return 0;
-            }
-            var hangar = _data.Hangars[positionId];
+
+            var hangar = GetHangarByPositionId(positionId);
             var hangarConfig = _hangarsConfig.Hangars.Find(h => h.Id == hangar.Id);
             return hangarConfig.Capacity;
         }
@@ -97,17 +104,21 @@ namespace IdleCorp.OOP.Services.Hangars
         public int GetHangarUsedCapacity(int positionId)
         {
             if (!IsHangarBuilt(positionId))
-            {
                 return 0;
-            }
-            var hangarUsedCapacity = _data.Hangars[positionId].CurrentRobotCount;
-            return hangarUsedCapacity;
+
+            var hangar = GetHangarByPositionId(positionId);
+            return hangar.CurrentRobotCount;
         }
 
         public void ResetHangars()
         {
             _data.SetTotalRobotCount(0);
             _data.Hangars.Clear();
+        }
+
+        public List<HangarConfig> GetHangarConfigList()
+        {
+            return _hangarsConfig.Hangars;
         }
 
         private void AddRobots(int amount)
@@ -141,22 +152,21 @@ namespace IdleCorp.OOP.Services.Hangars
 
         private void HandleHangarBuilt(int positionId, int hangarId)
         {
-            if (positionId < _data.Hangars.Count)
-            {
+            var hangarConfig = _hangarsConfig.Hangars.Find(h => h.Id == hangarId);
+
+            _currenciesService.SubtractFunds(hangarConfig.Cost);
+
+            if (IsHangarBuilt(positionId))
                 ModifyHangarId(positionId, hangarId);
-            }
             else
-            {
                 BuildHangar(positionId, hangarId);
-            }
         }
 
         private void BuildHangar(int positionId, int hangarId)
         {
             if (IsHangarBuilt(positionId))
-            {
                 return;
-            }
+
             var hangar = new HangarData();
             hangar.SetPositionId(positionId);
             hangar.SetId(hangarId);
@@ -171,6 +181,11 @@ namespace IdleCorp.OOP.Services.Hangars
         private void ModifyHangarRobotCount(int positionId, int count)
         {
             _data.ModifyHangarRobotCount(positionId, count);
+        }
+
+        private HangarData GetHangarByPositionId(int positionId)
+        {
+            return _data.Hangars.Find(h => h.PositionId == positionId);
         }
     }
 }

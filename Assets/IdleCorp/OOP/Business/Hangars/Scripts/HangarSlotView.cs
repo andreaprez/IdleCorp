@@ -38,16 +38,10 @@ namespace IdleCorp.OOP.Business.Hangars
             _slotIndex = index;
         }
 
-        public void SetEmpty()
+        public void SetUsed(bool isUsed)
         {
-            emptySlotDisplay.SetActive(true);
-            usedSlotDisplay.SetActive(false);
-        }
-
-        public void SetUsed()
-        {
-            emptySlotDisplay.SetActive(false);
-            usedSlotDisplay.SetActive(true);
+            emptySlotDisplay.SetActive(!isUsed);
+            usedSlotDisplay.SetActive(isUsed);
         }
 
         public void SetImage(Sprite image)

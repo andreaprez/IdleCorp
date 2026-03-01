@@ -3,6 +3,7 @@ using IdleCorp.OOP.Business.UI;
 using IdleCorp.OOP.Services;
 using IdleCorp.OOP.Services.Events.Factory;
 using IdleCorp.OOP.Services.Events.Hangars;
+using IdleCorp.OOP.Services.Events.Input;
 using IdleCorp.OOP.Services.Hangars;
 
 namespace IdleCorp.OOP.Business.Hangars
@@ -15,6 +16,8 @@ namespace IdleCorp.OOP.Business.Hangars
         {
             base.Initialize();
             _hangarsService = ServiceLocator.GetService<HangarsService>();
+
+            EventsService.GetEvent<InputTappedOnWorldInteractableEvent>().AddListener(TryOpenPopup);
         }
 
         public override void SetModel()
@@ -42,7 +45,7 @@ namespace IdleCorp.OOP.Business.Hangars
             }
 
             EventsService.GetEvent<RobotProducedEvent>().AddListener(HandleRobotCountChanged);
-            EventsService.GetEvent<HangarBuiltEvent>().AddListener(HandleNewHangarBuilt);
+            EventsService.GetEvent<HangarBuiltEvent>().AddListener(HandleHangarBuilt);
         }
 
         public override void BindViewToModel()
@@ -52,9 +55,10 @@ namespace IdleCorp.OOP.Business.Hangars
             for (var i = 0; i < Model.HangarSlotModels.Count; i++)
             {
                 var slotModel = Model.HangarSlotModels[i];
-                slotModel.HangarImage.ValueChanged += View.HangarSlots[i].SetImage;
                 slotModel.CapacityText.ValueChanged += View.HangarSlots[i].SetCapacityText;
                 slotModel.CapacityBarValue.ValueChanged += View.HangarSlots[i].SetCapacityBar;
+                slotModel.HangarImage.ValueChanged += View.HangarSlots[i].SetImage;
+                slotModel.IsUsed.ValueChanged += View.HangarSlots[i].SetUsed;
             }
         }
 
@@ -98,21 +102,23 @@ namespace IdleCorp.OOP.Business.Hangars
                 slotModel.HangarImage.ValueChanged -= View.HangarSlots[i].SetImage;
                 slotModel.CapacityText.ValueChanged -= View.HangarSlots[i].SetCapacityText;
                 slotModel.CapacityBarValue.ValueChanged -= View.HangarSlots[i].SetCapacityBar;
+                slotModel.IsUsed.ValueChanged -= View.HangarSlots[i].SetUsed;
             }
 
             EventsService.GetEvent<RobotProducedEvent>().RemoveListener(HandleRobotCountChanged);
+            EventsService.GetEvent<HangarBuiltEvent>().RemoveListener(HandleHangarBuilt);
         }
 
         private void HandleSlotBuild(int slotIndex)
         {
             var currentHangarId = _hangarsService.GetHangarId(slotIndex);
-            EventsService.GetEvent<OpenHangarStoreEvent>().Trigger(currentHangarId);
+            EventsService.GetEvent<OpenHangarStoreEvent>().Trigger(slotIndex, currentHangarId);
         }
 
         private void HandleSlotUpgrade(int slotIndex)
         {
             var currentHangarId = _hangarsService.GetHangarId(slotIndex);
-            EventsService.GetEvent<OpenHangarStoreEvent>().Trigger(currentHangarId);
+            EventsService.GetEvent<OpenHangarStoreEvent>().Trigger(slotIndex, currentHangarId);
         }
 
         private void HandleRobotCountChanged(int amountAdded)
@@ -120,7 +126,7 @@ namespace IdleCorp.OOP.Business.Hangars
             UpdateModel();
         }
 
-        private void HandleNewHangarBuilt(int positionId, int hangarId)
+        private void HandleHangarBuilt(int positionId, int hangarId)
         {
             UpdateModel();
         }

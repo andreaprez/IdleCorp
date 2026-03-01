@@ -55,31 +55,6 @@ namespace IdleCorp.OOP.Business.Hangars
             capacityBar.value = barValue;
         }
 
-        public void SetSlotEmpty(int slotIndex)
-        {
-            HangarSlots[slotIndex].SetEmpty();
-        }
-
-        public void SetSlotUsed(int slotIndex)
-        {
-            HangarSlots[slotIndex].SetUsed();
-        }
-
-        public void SetSlotImage(int slotIndex, Sprite image)
-        {
-            HangarSlots[slotIndex].SetImage(image);
-        }
-
-        public void SetSlotCapacityText(int slotIndex, string capacity)
-        {
-            HangarSlots[slotIndex].SetCapacityText(capacity);
-        }
-
-        public void SetSlotCapacityBar(int slotIndex, float capacityBarValue)
-        {
-            HangarSlots[slotIndex].SetCapacityBar(capacityBarValue);
-        }
-
         private void OnCloseButtonPressed()
         {
             CloseButtonPressed?.Invoke();
