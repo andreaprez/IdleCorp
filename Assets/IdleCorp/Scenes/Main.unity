@@ -3063,6 +3063,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f985e4cfeea041039b6b9f33f37347c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hangarSpawnPoints:
+  - {fileID: 765184723}
+  - {fileID: 1129237990}
+  - {fileID: 1761871783}
+  - {fileID: 529380917}
 --- !u!1001 &595359645922083867
 PrefabInstance:
   m_ObjectHideFlags: 0

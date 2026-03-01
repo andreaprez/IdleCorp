@@ -23,11 +23,6 @@ namespace IdleCorp.OOP.Business
             RegisterServices();
         }
 
-        private void Start()
-        {
-            spawner.SpawnWorld();
-        }
-
         private void RegisterServices()
         {
             ServiceLocator.RegisterService<EventsService>(new EventsService());
