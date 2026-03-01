@@ -1,9 +1,9 @@
-using IdleCorp.OOP.Persistence.Currencies;
-using IdleCorp.OOP.Persistence.Factory;
 using IdleCorp.OOP.Services;
+using IdleCorp.OOP.Services.Currencies;
 using IdleCorp.OOP.Services.Events;
 using IdleCorp.OOP.Services.Events.Factory;
-using IdleCorp.OOP.Services.UserData;
+using IdleCorp.OOP.Services.Factory;
+using IdleCorp.OOP.Services.Hangars;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,26 +17,28 @@ namespace IdleCorp.OOP.Business.Factory
         [SerializeField]
         private Image cooldownFill;
 
+        private FactoryService _factoryService;
+        private CurrenciesService _currenciesService;
+        private HangarsService _hangarsService;
         private EventsService _eventsService;
-        private FactoryData _factoryData;
-        private CurrenciesData _currenciesData;
         private float _cooldownTimer;
 
         private void Start()
         {
+            _factoryService = ServiceLocator.GetService<FactoryService>();
+            _currenciesService = ServiceLocator.GetService<CurrenciesService>();
+            _hangarsService = ServiceLocator.GetService<HangarsService>();
             _eventsService = ServiceLocator.GetService<EventsService>();
-            _factoryData = ServiceLocator.GetService<UserDataService>().GetData<FactoryData>();
-            _currenciesData = ServiceLocator.GetService<UserDataService>().GetData<CurrenciesData>();
         }
 
         private void Update()
         {
-            if (_cooldownTimer >= _factoryData.ProductionRecoveryRate)
+            if (_cooldownTimer >= _factoryService.GetProductionRecoveryRate())
             {
                 _cooldownTimer = 0f;
-                _factoryData.SetProductionCurrentCapacity(_factoryData.ProductionCurrentCapacity + 1);
+                _factoryService.ModifyProductionCurrentCapacity(_factoryService.GetProductionCurrentCapacity() + 1);
             }
-            cooldownFill.fillAmount = (float)_factoryData.ProductionCurrentCapacity / _factoryData.ProductionMaxCapacity;
+            cooldownFill.fillAmount = (float)_factoryService.GetProductionCurrentCapacity() / _factoryService.GetProductionMaxCapacity();
             button.interactable = CanProduce();
             _cooldownTimer += Time.deltaTime;
         }
@@ -45,15 +47,16 @@ namespace IdleCorp.OOP.Business.Factory
         {
             if (!CanProduce())
                 return;
-            _eventsService.GetEvent<RobotProducedEvent>().Trigger(_factoryData.ProductionQuantity);
-            _factoryData.SetProductionCurrentCapacity(_factoryData.ProductionCurrentCapacity - _factoryData.ProductionQuantity);
-            _currenciesData.ModifyFunds(-_factoryData.ProductionCost);
+            _eventsService.GetEvent<RobotProducedEvent>().Trigger(_factoryService.GetProductionQuantity());
+            _factoryService.ModifyProductionCurrentCapacity(_factoryService.GetProductionCurrentCapacity() - _factoryService.GetProductionQuantity());
+            _currenciesService.SubtractFunds(_factoryService.GetProductionCost());
         }
 
         private bool CanProduce()
         {
-            return _factoryData.ProductionCurrentCapacity >= _factoryData.ProductionQuantity
-                   && _currenciesData.Funds >= _factoryData.ProductionCost;
+            return _factoryService.GetProductionCurrentCapacity() >= _factoryService.GetProductionQuantity()
+                   && _currenciesService.GetFunds() >= _factoryService.GetProductionCost()
+                   && _hangarsService.GetFreeSpace() >= _factoryService.GetProductionQuantity();
         }
     }
 }

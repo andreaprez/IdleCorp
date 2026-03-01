@@ -42,7 +42,7 @@ namespace IdleCorp.OOP.Persistence.Factory
 
         public void SetProductionCurrentCapacity(int currentCapacity)
         {
-            ProductionCurrentCapacity = Math.Clamp(currentCapacity, 0, ProductionMaxCapacity);
+            ProductionCurrentCapacity = currentCapacity;
             SaveData();
         }
 

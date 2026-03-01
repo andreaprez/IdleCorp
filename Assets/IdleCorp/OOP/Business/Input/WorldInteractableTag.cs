@@ -5,6 +5,7 @@ namespace IdleCorp.OOP.Business.Input
         Hangars,
         ShippingDepot,
         IDFacility,
-        Vehicle
+        Vehicle,
+        None
     }
 }

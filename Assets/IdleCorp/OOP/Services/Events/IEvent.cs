@@ -1,7 +1,4 @@
 namespace IdleCorp.OOP.Services.Events
 {
-    public interface IEvent
-    {
-        
-    }
+    public interface IEvent {}
 }
