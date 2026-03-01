@@ -9,7 +9,8 @@ namespace IdleCorp.OOP.Persistence.Hangars
         public int Id;
         public string Name;
         public int Capacity;
-        public GameObject Prefab; 
         public Sprite Image; 
+        public GameObject Prefab; 
+        public int Cost;
     }
 }
