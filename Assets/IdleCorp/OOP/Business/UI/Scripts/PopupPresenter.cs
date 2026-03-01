@@ -1,7 +1,7 @@
 using IdleCorp.OOP.Business.Input;
 using IdleCorp.OOP.Services;
 using IdleCorp.OOP.Services.Events;
-using IdleCorp.OOP.Services.Events.Input;
+using IdleCorp.OOP.Services.Events.UI;
 
 namespace IdleCorp.OOP.Business.UI
 {
@@ -40,7 +40,7 @@ namespace IdleCorp.OOP.Business.UI
 
             View.Open();
 
-            EventsService.GetEvent<SetWorldInputEnabledEvent>().Trigger(false);
+            EventsService.GetEvent<PopupOpenedEvent>().Trigger();
         }
 
         public virtual void ClosePopup()
@@ -48,7 +48,7 @@ namespace IdleCorp.OOP.Business.UI
             ClearListeners();
             View.Close();
 
-            EventsService.GetEvent<SetWorldInputEnabledEvent>().Trigger(true);
+            EventsService.GetEvent<PopupClosedEvent>().Trigger();
         }
     }
 }
