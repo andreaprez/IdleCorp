@@ -1,4 +1,6 @@
 using IdleCorp.OOP.Persistence.Currencies;
+using IdleCorp.OOP.Services.Events;
+using IdleCorp.OOP.Services.Events.Currencies;
 using IdleCorp.OOP.Services.UserData;
 
 namespace IdleCorp.OOP.Services.Currencies
@@ -27,6 +29,7 @@ namespace IdleCorp.OOP.Services.Currencies
             var funds = GetFunds();
             funds += amount;
             _data.SetFunds(funds);
+            ServiceLocator.GetService<EventsService>().GetEvent<FundsChangedEvent>().Trigger(funds);
         }
 
         public void SubtractFunds(int amount)
@@ -34,6 +37,7 @@ namespace IdleCorp.OOP.Services.Currencies
             var funds = GetFunds();
             funds -= amount;
             _data.SetFunds(funds);
+            ServiceLocator.GetService<EventsService>().GetEvent<FundsChangedEvent>().Trigger(funds);
         }
 
         public int GetParts()
