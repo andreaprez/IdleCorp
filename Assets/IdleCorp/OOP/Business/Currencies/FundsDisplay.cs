@@ -1,6 +1,5 @@
-using IdleCorp.OOP.Persistence.Currencies;
 using IdleCorp.OOP.Services;
-using IdleCorp.OOP.Services.UserData;
+using IdleCorp.OOP.Services.Currencies;
 using TMPro;
 using UnityEngine;
 
@@ -11,16 +10,16 @@ namespace IdleCorp.OOP.Business.UI.Currencies
         [SerializeField] private TextMeshProUGUI fundsNumberText;
         [SerializeField] private TextMeshProUGUI fundsMagnitudeText;
 
-        private CurrenciesData _currenciesData;
+        private CurrenciesService _currenciesService;
 
         private void Start()
         {
-            _currenciesData = ServiceLocator.GetService<UserDataService>().GetData<CurrenciesData>();
+            _currenciesService = ServiceLocator.GetService<CurrenciesService>();
         }
 
         void Update()
         {
-            fundsNumberText.SetText(_currenciesData.Funds.ToString());
+            fundsNumberText.SetText(_currenciesService.GetFunds().ToString());
             // TODO: Calculate conversion with magnitudes (trillion, quadrillion, etc)
         }
     }
