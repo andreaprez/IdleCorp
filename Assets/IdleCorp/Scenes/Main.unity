@@ -565,6 +565,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawner: {fileID: 2103845661}
   hangarsConfig: {fileID: 11400000, guid: 9cacda947a1e8be4fb51c0f078e52967, type: 2}
+  robotsConfig: {fileID: 11400000, guid: ace5ab9271290004fba54e849e367a10, type: 2}
 --- !u!4 &486452840
 Transform:
   m_ObjectHideFlags: 0
@@ -1122,6 +1123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89a186affebf0264f916c19e93b98e8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FactorySpawnPoint: {fileID: 947994083}
   HangarsPopup: {fileID: 1131546601}
   HangarStorePopup: {fileID: 1325131371}
 --- !u!4 &782632339
@@ -1224,6 +1226,11 @@ Transform:
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4802167433784796754, guid: 9fbf45ecec78c0845910b3eff0cd3c08, type: 3}
   m_PrefabInstance: {fileID: 1133290605566069258}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &947994083 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2172099643975594159, guid: 910ab534f551e0d4b893152341759939, type: 3}
+  m_PrefabInstance: {fileID: 1396475630247528206}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &963194225
 GameObject:
