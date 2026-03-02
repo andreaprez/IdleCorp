@@ -110,7 +110,7 @@ namespace IdleCorp.OOP.Services.Hangars
             return hangar.CurrentRobotCount;
         }
 
-        public GameObject GetHangarPrefab(int hangarId)
+        public HangarWorldObject GetHangarPrefab(int hangarId)
         {
             return _hangarsConfig.Hangars.Find(h => h.Id == hangarId).Prefab;
         }

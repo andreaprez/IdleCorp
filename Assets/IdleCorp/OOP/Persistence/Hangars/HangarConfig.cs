@@ -1,4 +1,5 @@
 using System;
+using IdleCorp.OOP.Business.Hangars;
 using UnityEngine;
 
 namespace IdleCorp.OOP.Persistence.Hangars
@@ -10,7 +11,7 @@ namespace IdleCorp.OOP.Persistence.Hangars
         public string Name;
         public int Capacity;
         public Sprite Image; 
-        public GameObject Prefab; 
+        public HangarWorldObject Prefab; 
         public int Cost;
     }
 }
