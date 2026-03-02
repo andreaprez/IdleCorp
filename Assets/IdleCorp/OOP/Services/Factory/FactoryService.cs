@@ -1,12 +1,21 @@
 using System;
+using IdleCorp.OOP.Business;
 using IdleCorp.OOP.Persistence.Factory;
+using IdleCorp.OOP.Persistence.Robots;
 using IdleCorp.OOP.Services.UserData;
+using UnityEngine;
 
 namespace IdleCorp.OOP.Services.Factory
 {
     public class FactoryService : IService
     {
+        private readonly RobotsConfig _robotsConfig;
         private FactoryData _data;
+
+        public FactoryService(RobotsConfig robotsConfig)
+        {
+            _robotsConfig = robotsConfig;
+        }
 
         public void Init()
         {
@@ -67,6 +76,16 @@ namespace IdleCorp.OOP.Services.Factory
         public void ModifyProductionCost(int productionCost)
         {
             _data.SetProductionCost(productionCost);
+        }
+
+        public Transform GetSpawnPoint()
+        {
+            return SceneReferencesHolder.Instance.FactorySpawnPoint;
+        }
+
+        public float GetTargetReachedThresholdForRobots()
+        {
+            return _robotsConfig.TargetReachedThresholdForRobots;
         }
     }
 }

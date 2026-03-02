@@ -1,4 +1,5 @@
 using IdleCorp.OOP.Persistence.Hangars;
+using IdleCorp.OOP.Persistence.Robots;
 using IdleCorp.OOP.Services;
 using IdleCorp.OOP.Services.UserData;
 using IdleCorp.OOP.Services.Currencies;
@@ -17,6 +18,8 @@ namespace IdleCorp.OOP.Business
         [Header("Configuration")]
         [SerializeField]
         private HangarsConfig hangarsConfig;
+        [SerializeField]
+        private RobotsConfig robotsConfig;
 
         private void Awake()
         {
@@ -28,7 +31,7 @@ namespace IdleCorp.OOP.Business
             ServiceLocator.RegisterService<EventsService>(new EventsService());
             ServiceLocator.RegisterService<UserDataService>(new UserDataService());
             ServiceLocator.RegisterService<CurrenciesService>(new CurrenciesService());
-            ServiceLocator.RegisterService<FactoryService>(new FactoryService());
+            ServiceLocator.RegisterService<FactoryService>(new FactoryService(robotsConfig));
             ServiceLocator.RegisterService<HangarsService>(new HangarsService(hangarsConfig));
         }
     }

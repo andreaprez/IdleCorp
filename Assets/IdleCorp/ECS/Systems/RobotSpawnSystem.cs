@@ -8,7 +8,8 @@ namespace IdleCorp.ECS.Systems
 {
     public partial struct RobotSpawnSystem : ISystem
     {
-        private float PositionRandomizer => Random.Range(-0.2f,0.2f);
+        private float SpawnPositionRandomizer => Random.Range(-0.2f, 0.2f);
+        private float TargetPositionRandomizer => Random.Range(-0.2f, 0.2f);
 
         public void OnCreate(ref SystemState state)
         {
@@ -30,6 +31,11 @@ namespace IdleCorp.ECS.Systems
                         Position = GetSpawnPosition(spawnComp),
                         Scale = 1
                     });
+                    ecb.SetComponent(robotEntity, new MovementComponent
+                    {
+                        TargetPosition = GetRobotTargetPosition(spawnComp),
+                        TargetReachedThreshold = spawnComp.ValueRO.TargetReachedThreshold
+                    });
                 }
                 spawnComp.ValueRW.AmountToSpawn = 0;
             }
@@ -44,8 +50,17 @@ namespace IdleCorp.ECS.Systems
             var forward = new float3(0, 0, 1);
             var right = new float3(1, 0, 0);
             return spawnComp.ValueRW.SpawnPosition
-                   + forward * PositionRandomizer 
-                   + right * PositionRandomizer;
+                   + forward * SpawnPositionRandomizer 
+                   + right * SpawnPositionRandomizer;
+        }
+        
+        private float3 GetRobotTargetPosition(RefRW<RobotSpawnComponent> spawnComp)
+        {
+            var forward = new float3(0, 0, 1);
+            var right = new float3(1, 0, 0);
+            return spawnComp.ValueRW.TargetPosition
+                   + forward * TargetPositionRandomizer 
+                   + right * TargetPositionRandomizer;
         }
     }
 }

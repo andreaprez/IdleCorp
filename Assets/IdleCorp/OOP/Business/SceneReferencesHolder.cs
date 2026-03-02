@@ -5,6 +5,10 @@ namespace IdleCorp.OOP.Business
 {
     public class SceneReferencesHolder : MonoBehaviour
     {
+        [Header("World")] 
+        [SerializeField] 
+        public Transform FactorySpawnPoint;
+
         [Header("Popups")] 
         [SerializeField] 
         public HangarsPopupView HangarsPopup;

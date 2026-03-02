@@ -1,8 +1,8 @@
 using IdleCorp.ECS.Components;
 using ProjectDawn.Navigation;
 using Unity.Entities;
+using Unity.Mathematics;
 using Unity.Transforms;
-using UnityEngine;
 
 namespace IdleCorp.ECS.Systems
 {
@@ -36,8 +36,8 @@ namespace IdleCorp.ECS.Systems
             RefRW<AgentBody> agent)
         {
             var distance = agent.ValueRO.Destination - transform.ValueRO.Position;
-            return distance.x < movement.ValueRO.TargetReachedThreshold
-                   && distance.y < movement.ValueRO.TargetReachedThreshold;
+            return math.abs(distance.x) < movement.ValueRO.TargetReachedThreshold
+                   && math.abs(distance.z) < movement.ValueRO.TargetReachedThreshold;
         }
     }
 }

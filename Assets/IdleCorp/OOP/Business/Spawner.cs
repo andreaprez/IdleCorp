@@ -1,9 +1,12 @@
 using System.Collections.Generic;
+using System.Linq;
 using IdleCorp.ECS.Components;
+using IdleCorp.OOP.Business.Hangars;
 using IdleCorp.OOP.Services;
 using IdleCorp.OOP.Services.Events;
 using IdleCorp.OOP.Services.Events.Factory;
 using IdleCorp.OOP.Services.Events.Hangars;
+using IdleCorp.OOP.Services.Factory;
 using IdleCorp.OOP.Services.Hangars;
 using Unity.Entities;
 using UnityEngine;
@@ -18,9 +21,10 @@ namespace IdleCorp.OOP.Business
         private EntityManager _entityManager;
         private Entity _robotSpawnEntity;
 
+        private FactoryService _factoryService;
         private HangarsService _hangarsService;
 
-        private Dictionary<int, GameObject> _spawnedHangarsByPositionId;
+        private Dictionary<int, HangarWorldObject> _spawnedHangarsByPositionId;
 
         private void Start()
         {
@@ -29,6 +33,7 @@ namespace IdleCorp.OOP.Business
                 .CreateEntityQuery(typeof(RobotSpawnComponent));
             _robotSpawnEntity = robotSpawnQuery.GetSingletonEntity();
 
+            _factoryService = ServiceLocator.GetService<FactoryService>();
             _hangarsService = ServiceLocator.GetService<HangarsService>();
 
             SetupSpawnDictionaries();
@@ -40,7 +45,7 @@ namespace IdleCorp.OOP.Business
 
         private void SetupSpawnDictionaries()
         {
-            _spawnedHangarsByPositionId = new Dictionary<int, GameObject>
+            _spawnedHangarsByPositionId = new Dictionary<int, HangarWorldObject>
             {
                 { 0, null },
                 { 1, null },
@@ -73,14 +78,16 @@ namespace IdleCorp.OOP.Business
 
         private void SpawnRobots(int amount)
         {
-            var spawnComponent = _entityManager.GetComponentData<RobotSpawnComponent>(_robotSpawnEntity);
-            var newComponent = new RobotSpawnComponent()
+            var defaultSpawnComponent = _entityManager.GetComponentData<RobotSpawnComponent>(_robotSpawnEntity);
+            var newSpawnComponent = new RobotSpawnComponent
             {
-                RobotPrefab = spawnComponent.RobotPrefab,
-                SpawnPosition = spawnComponent.SpawnPosition,
-                AmountToSpawn = spawnComponent.AmountToSpawn + amount
+                RobotPrefab = defaultSpawnComponent.RobotPrefab,
+                AmountToSpawn = amount,
+                SpawnPosition = _factoryService.GetSpawnPoint().position,
+                TargetPosition = GetRandomHangarPosition(),
+                TargetReachedThreshold = _factoryService.GetTargetReachedThresholdForRobots()
             };
-            _entityManager.SetComponentData(_robotSpawnEntity, newComponent);
+            _entityManager.SetComponentData(_robotSpawnEntity, newSpawnComponent);
         }
 
         private void SpawnHangar(int positionId, int hangarId)
@@ -102,6 +109,14 @@ namespace IdleCorp.OOP.Business
         private void SpawnShootingStar()
         {
             //TODO
+        }
+
+        private Vector3 GetRandomHangarPosition()
+        {
+            var builtHangarsInfo = _hangarsService.GetBuiltHangarsInfo();
+            var randomValue = Random.Range(0, builtHangarsInfo.Count);
+            var randomHangarPositionId = builtHangarsInfo.ElementAt(randomValue).Key;
+            return _spawnedHangarsByPositionId[randomHangarPositionId].RobotTargetPosition.position;
         }
     }
 }
