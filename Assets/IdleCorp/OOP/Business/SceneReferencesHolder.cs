@@ -1,4 +1,5 @@
 using IdleCorp.OOP.Business.Hangars;
+using IdleCorp.OOP.Business.Shipping;
 using UnityEngine;
 
 namespace IdleCorp.OOP.Business
@@ -14,6 +15,10 @@ namespace IdleCorp.OOP.Business
         public HangarsPopupView HangarsPopup;
         [SerializeField] 
         public HangarStorePopupView HangarStorePopup;
+        [SerializeField] 
+        public ShippingPopupView ShippingPopup;
+        [SerializeField] 
+        public VehicleStorePopupView VehicleStorePopup;
 
         private static SceneReferencesHolder _instance;
         public static SceneReferencesHolder Instance => _instance;
