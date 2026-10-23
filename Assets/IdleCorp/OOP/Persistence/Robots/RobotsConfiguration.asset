@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79296c56d8894e07b0ca90a57a721456, type: 3}
   m_Name: RobotsConfiguration
   m_EditorClassIdentifier: 
+  ProductionRatePerRobot: 10
   TargetReachedThresholdForRobots: 0.08

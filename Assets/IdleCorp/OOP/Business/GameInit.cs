@@ -32,7 +32,7 @@ namespace IdleCorp.OOP.Business
             ServiceLocator.RegisterService<UserDataService>(new UserDataService());
             ServiceLocator.RegisterService<CurrenciesService>(new CurrenciesService());
             ServiceLocator.RegisterService<FactoryService>(new FactoryService(robotsConfig));
-            ServiceLocator.RegisterService<HangarsService>(new HangarsService(hangarsConfig));
+            ServiceLocator.RegisterService<HangarsService>(new HangarsService(hangarsConfig, robotsConfig));
         }
     }
 }
