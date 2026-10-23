@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using IdleCorp.OOP.Persistence.Currencies;
 using IdleCorp.OOP.Persistence.Factory;
 using IdleCorp.OOP.Persistence.Hangars;
+using IdleCorp.OOP.Persistence.Shipping;
 
 namespace IdleCorp.OOP.Services.UserData
 {
@@ -40,6 +41,7 @@ namespace IdleCorp.OOP.Services.UserData
             LoadData<CurrenciesData>();
             LoadData<FactoryData>();
             LoadData<HangarsData>();
+            LoadData<ShippingData>();
         }
 
         private void LoadData<T>() where T : IUserData, new()
