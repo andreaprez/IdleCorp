@@ -18,8 +18,8 @@ namespace IdleCorp.ECS.Systems
 
         public void OnUpdate(ref SystemState state)
         {
-            var ecb = SystemAPI.GetSingleton<BeginFixedStepSimulationEntityCommandBufferSystem.Singleton>()
-                .CreateCommandBuffer(state.WorldUnmanaged);
+            var ecbSingleton = SystemAPI.GetSingleton<BeginFixedStepSimulationEntityCommandBufferSystem.Singleton>();
+            var ecb = ecbSingleton.CreateCommandBuffer(state.WorldUnmanaged);
 
             foreach (var spawnComp in SystemAPI.Query<RefRW<RobotSpawnComponent>>())
             {
@@ -31,7 +31,7 @@ namespace IdleCorp.ECS.Systems
                         Position = GetSpawnPosition(spawnComp),
                         Scale = 1
                     });
-                    ecb.SetComponent(robotEntity, new MovementComponent
+                    ecb.SetComponent(robotEntity, new TargetedMovementComponent
                     {
                         TargetPosition = GetRobotTargetPosition(spawnComp),
                         TargetReachedThreshold = spawnComp.ValueRO.TargetReachedThreshold

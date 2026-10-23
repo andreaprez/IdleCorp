@@ -13,7 +13,7 @@ namespace IdleCorp.ECS.Authoring
         public override void Bake(RobotAuthoring authoring)
         {
             var entity = GetEntity(authoring, TransformUsageFlags.Dynamic);
-            AddComponent(entity, new MovementComponent());
+            AddComponent(entity, new TargetedMovementComponent());
         }
     }
 }

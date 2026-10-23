@@ -16,7 +16,7 @@ namespace IdleCorp.ECS.Systems
         public void OnUpdate(ref SystemState state)
         {
             foreach (var (transform, movement, agent, entity) 
-                     in SystemAPI.Query<RefRO<LocalToWorld>, RefRO<MovementComponent>, RefRW<AgentBody>>().WithEntityAccess())
+                     in SystemAPI.Query<RefRO<LocalToWorld>, RefRO<TargetedMovementComponent>, RefRW<AgentBody>>().WithEntityAccess())
             {
                 agent.ValueRW.SetDestination(movement.ValueRO.TargetPosition);
                 if (HasReachedTarget(transform, movement, agent))
@@ -32,7 +32,7 @@ namespace IdleCorp.ECS.Systems
         {
         }
 
-        private bool HasReachedTarget(RefRO<LocalToWorld> transform, RefRO<MovementComponent> movement,
+        private bool HasReachedTarget(RefRO<LocalToWorld> transform, RefRO<TargetedMovementComponent> movement,
             RefRW<AgentBody> agent)
         {
             var distance = agent.ValueRO.Destination - transform.ValueRO.Position;
