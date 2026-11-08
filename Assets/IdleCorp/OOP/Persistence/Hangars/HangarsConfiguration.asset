@@ -17,23 +17,23 @@ MonoBehaviour:
     Name: First
     Capacity: 100
     Image: {fileID: 21300000, guid: ce0f063a71b913b429ff58448d97c51e, type: 3}
-    Prefab: {fileID: 4618230083459246059, guid: 84b43c91bdc106348a7b50224e8a6ad3, type: 3}
+    Prefab: {fileID: 2428624130197952450, guid: 84b43c91bdc106348a7b50224e8a6ad3, type: 3}
     Cost: 10
   - Id: 1
     Name: Second
     Capacity: 300
     Image: {fileID: 21300000, guid: 3f941522738d33d41acbb5634e0d64cd, type: 3}
-    Prefab: {fileID: 7796303246772676566, guid: 0ed0e2b9cc60c574684f1ddecaa410a1, type: 3}
+    Prefab: {fileID: 5652209052292345888, guid: 0ed0e2b9cc60c574684f1ddecaa410a1, type: 3}
     Cost: 30
   - Id: 2
     Name: Third
     Capacity: 700
     Image: {fileID: 21300000, guid: 3692daee91b50c54498142079570c4d1, type: 3}
-    Prefab: {fileID: 7796303246772676566, guid: d1c45bfcd409caf4d915a21193d4dbaf, type: 3}
+    Prefab: {fileID: 5210236076022813784, guid: d1c45bfcd409caf4d915a21193d4dbaf, type: 3}
     Cost: 60
   - Id: 3
     Name: Fourth
     Capacity: 1000
     Image: {fileID: 21300000, guid: 508ed08601dde5447859d3f2551f77d1, type: 3}
-    Prefab: {fileID: 7796303246772676566, guid: 52ecc9e759ab586408f7ea7de29d52b2, type: 3}
+    Prefab: {fileID: 4321064499520367002, guid: 52ecc9e759ab586408f7ea7de29d52b2, type: 3}
     Cost: 100

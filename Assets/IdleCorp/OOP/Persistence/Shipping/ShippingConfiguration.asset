@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c06645130d3b412c8ae367c9d0f3c9f2, type: 3}
+  m_Name: ShippingConfiguration
+  m_EditorClassIdentifier: 
+  Vehicles:
+  - Id: 0
+    Name: PickUp
+    ShippingRate: 100
+    Image: {fileID: 21300000, guid: 87ac76fdec7264541a16d0282f464986, type: 3}
+    Prefab: {fileID: 1715341722749879149, guid: 0f8a2f6b33344dd459cdf8ba837d1c05, type: 3}
+    Cost: 50
+  - Id: 1
+    Name: SUV
+    ShippingRate: 200
+    Image: {fileID: 21300000, guid: 84a49493406280a4ea430d7a3a9782b4, type: 3}
+    Prefab: {fileID: 950944824446490366, guid: 9a1e0690345fad341ac84d2efd45df05, type: 3}
+    Cost: 100
+  - Id: 2
+    Name: SUV2
+    ShippingRate: 300
+    Image: {fileID: 21300000, guid: e7837c4072ea6ac40af8c67e0b21c8bd, type: 3}
+    Prefab: {fileID: 4998630292597402271, guid: 182219bf4e7f92941a5000aeb00f7e59, type: 3}
+    Cost: 150
+  - Id: 3
+    Name: Van
+    ShippingRate: 500
+    Image: {fileID: 21300000, guid: 390759fda5439b3449cf0e0dcdf247f6, type: 3}
+    Prefab: {fileID: 206993127983362428, guid: 1bb17af780a84f84686ee3e129538524, type: 3}
+    Cost: 300
+  - Id: 4
+    Name: Truck
+    ShippingRate: 1000
+    Image: {fileID: 21300000, guid: c11dd8daecabb3f459d56ae1becd75c4, type: 3}
+    Prefab: {fileID: 8039738309080101583, guid: 417ca5985ec73744ea59201094c5d766, type: 3}
+    Cost: 600
+  VehicleSpawnSecondsInterval: 15

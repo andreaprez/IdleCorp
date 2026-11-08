@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using IdleCorp.OOP.Business.Hangars;
 using IdleCorp.OOP.Persistence.Hangars;
+using IdleCorp.OOP.Persistence.Robots;
 using IdleCorp.OOP.Services.Currencies;
 using IdleCorp.OOP.Services.Events;
 using IdleCorp.OOP.Services.Events.Factory;
@@ -13,6 +14,7 @@ namespace IdleCorp.OOP.Services.Hangars
     public class HangarsService : IService
     {
         private readonly HangarsConfig _hangarsConfig;
+        private readonly RobotsConfig _robotsConfig;
         private HangarsData _data;
 
         private HangarsPopupPresenter _mainPopupPresenter;
@@ -21,9 +23,10 @@ namespace IdleCorp.OOP.Services.Hangars
         private EventsService _eventsService;
         private CurrenciesService _currenciesService;
 
-        public HangarsService(HangarsConfig hangarsConfig)
+        public HangarsService(HangarsConfig hangarsConfig, RobotsConfig robotsConfig)
         {
             _hangarsConfig = hangarsConfig;
+            _robotsConfig = robotsConfig;
         }
 
         public void Init()
@@ -68,6 +71,11 @@ namespace IdleCorp.OOP.Services.Hangars
             return GetMaxCapacity() - GetTotalRobotCount();
         }
 
+        public int GetProductionRate()
+        {
+            return GetTotalRobotCount() * _robotsConfig.ProductionRatePerRobot;
+        }
+
         public bool IsHangarBuilt(int positionId)
         {
             return GetHangarByPositionId(positionId) != null;
@@ -110,7 +118,7 @@ namespace IdleCorp.OOP.Services.Hangars
             return hangar.CurrentRobotCount;
         }
 
-        public GameObject GetHangarPrefab(int hangarId)
+        public HangarWorldObject GetHangarPrefab(int hangarId)
         {
             return _hangarsConfig.Hangars.Find(h => h.Id == hangarId).Prefab;
         }
@@ -198,6 +206,7 @@ namespace IdleCorp.OOP.Services.Hangars
         private void ModifyHangarRobotCount(int positionId, int count)
         {
             _data.ModifyHangarRobotCount(positionId, count);
+            _eventsService.GetEvent<ProductionRateChangedEvent>().Trigger(GetProductionRate());
         }
 
         private HangarData GetHangarByPositionId(int positionId)

@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 862106567369682954}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.099, z: -1.65}
+  m_LocalPosition: {x: 0, y: 0.1, z: -1.908}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -112,8 +112,8 @@ Transform:
   m_GameObject: {fileID: 2021925382950385521}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.04797812, z: 0, w: 0.99884844}
-  m_LocalPosition: {x: -1.45, y: 0, z: 0.091}
-  m_LocalScale: {x: 1.9414474, y: 1, z: 1.0212005}
+  m_LocalPosition: {x: -1.898, y: 0, z: 0.127}
+  m_LocalScale: {x: 2.8382576, y: 1, z: 1.0212005}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4261926128019239818}
@@ -177,6 +177,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4938041917352290517}
+  - component: {fileID: 2428624130197952450}
   m_Layer: 0
   m_Name: Hangar1
   m_TagString: Untagged
@@ -202,6 +203,19 @@ Transform:
   - {fileID: 3193083961664727757}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2428624130197952450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4618230083459246059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c45378587fb40748415839aa75a3a25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  robotTargetPosition: {fileID: 5479889803240034520}
 --- !u!1 &8706916344656473478
 GameObject:
   m_ObjectHideFlags: 0

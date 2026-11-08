@@ -1,10 +1,13 @@
 using IdleCorp.OOP.Persistence.Hangars;
+using IdleCorp.OOP.Persistence.Robots;
+using IdleCorp.OOP.Persistence.Shipping;
 using IdleCorp.OOP.Services;
 using IdleCorp.OOP.Services.UserData;
 using IdleCorp.OOP.Services.Currencies;
 using IdleCorp.OOP.Services.Events;
 using IdleCorp.OOP.Services.Factory;
 using IdleCorp.OOP.Services.Hangars;
+using IdleCorp.OOP.Services.Shipping;
 using UnityEngine;
 
 namespace IdleCorp.OOP.Business
@@ -16,7 +19,11 @@ namespace IdleCorp.OOP.Business
 
         [Header("Configuration")]
         [SerializeField]
+        private RobotsConfig robotsConfig;
+        [SerializeField]
         private HangarsConfig hangarsConfig;
+        [SerializeField]
+        private ShippingConfig shippingConfig;
 
         private void Awake()
         {
@@ -28,8 +35,9 @@ namespace IdleCorp.OOP.Business
             ServiceLocator.RegisterService<EventsService>(new EventsService());
             ServiceLocator.RegisterService<UserDataService>(new UserDataService());
             ServiceLocator.RegisterService<CurrenciesService>(new CurrenciesService());
-            ServiceLocator.RegisterService<FactoryService>(new FactoryService());
-            ServiceLocator.RegisterService<HangarsService>(new HangarsService(hangarsConfig));
+            ServiceLocator.RegisterService<FactoryService>(new FactoryService(robotsConfig));
+            ServiceLocator.RegisterService<HangarsService>(new HangarsService(hangarsConfig, robotsConfig));
+            ServiceLocator.RegisterService<ShippingService>(new ShippingService(shippingConfig));
         }
     }
 }
