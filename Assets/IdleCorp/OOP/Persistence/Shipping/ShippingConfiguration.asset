@@ -43,3 +43,4 @@ MonoBehaviour:
     Image: {fileID: 21300000, guid: c11dd8daecabb3f459d56ae1becd75c4, type: 3}
     Prefab: {fileID: 8039738309080101583, guid: 417ca5985ec73744ea59201094c5d766, type: 3}
     Cost: 600
+  VehicleSpawnSecondsInterval: 15

@@ -7,6 +7,6 @@ namespace IdleCorp.OOP.Persistence.Shipping
     public class ShippingConfig : ScriptableObject
     {
         public List<VehicleConfig> Vehicles;
-
+        public int VehicleSpawnSecondsInterval;
     }
 }

@@ -131,6 +131,11 @@ namespace IdleCorp.OOP.Services.Shipping
             return _shippingConfig.Vehicles;
         }
 
+        public int GetVehicleSpawnSecondsInterval()
+        {
+            return _shippingConfig.VehicleSpawnSecondsInterval;
+        }
+
         private void HandleVehiclePurchased(int positionId, int vehicleId)
         {
             var vehicleConfig = _shippingConfig.Vehicles.Find(v => v.Id == vehicleId);

@@ -1,14 +1,19 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using IdleCorp.ECS.Authoring;
 using IdleCorp.ECS.Components;
 using IdleCorp.OOP.Business.Hangars;
 using IdleCorp.OOP.Services;
 using IdleCorp.OOP.Services.Events;
 using IdleCorp.OOP.Services.Events.Factory;
 using IdleCorp.OOP.Services.Events.Hangars;
+using IdleCorp.OOP.Services.Events.Shipping;
 using IdleCorp.OOP.Services.Factory;
 using IdleCorp.OOP.Services.Hangars;
+using IdleCorp.OOP.Services.Shipping;
 using Unity.Entities;
+using Unity.Transforms;
 using UnityEngine;
 
 namespace IdleCorp.OOP.Business
@@ -17,30 +22,37 @@ namespace IdleCorp.OOP.Business
     {
         [SerializeField]
         private List<Transform> hangarSpawnPoints;
+        [SerializeField]
+        private Transform vehicleSpawnPoint;
 
         private EntityManager _entityManager;
         private Entity _robotSpawnEntity;
+        private Entity _vehicleSpawnEntity;
 
         private FactoryService _factoryService;
         private HangarsService _hangarsService;
+        private ShippingService _shippingService;
 
         private Dictionary<int, HangarWorldObject> _spawnedHangarsByPositionId;
 
         private void Start()
         {
             _entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-            var robotSpawnQuery = _entityManager
-                .CreateEntityQuery(typeof(RobotSpawnComponent));
+            var robotSpawnQuery = _entityManager.CreateEntityQuery(typeof(RobotSpawnComponent));
             _robotSpawnEntity = robotSpawnQuery.GetSingletonEntity();
+            var vehicleSpawnQuery = _entityManager.CreateEntityQuery(typeof(PrefabPoolElement));
+            _vehicleSpawnEntity = vehicleSpawnQuery.GetSingletonEntity();
 
             _factoryService = ServiceLocator.GetService<FactoryService>();
             _hangarsService = ServiceLocator.GetService<HangarsService>();
+            _shippingService = ServiceLocator.GetService<ShippingService>();
 
             SetupSpawnDictionaries();
 
             AddListeners();
 
             SpawnWorld();
+            StartCoroutine(StartVehicleSpawnRoutine());
         }
 
         private void SetupSpawnDictionaries()
@@ -61,7 +73,7 @@ namespace IdleCorp.OOP.Business
             //TODO: listen to events to spawn elements:
             eventsService.GetEvent<RobotProducedEvent>().AddListener(SpawnRobots);
             eventsService.GetEvent<HangarBuiltEvent>().AddListener(SpawnHangar);
-            // eventsService.GetEvent<VehicleDeployedEvent>().AddListener(SpawnVehicle);
+            eventsService.GetEvent<VehicleDeployedEvent>().AddListener(SpawnVehicle);
             // eventsService.GetEvent<ShootingStarGeneratedEvent>().AddListener(SpawnShootingStar);
         }
 
@@ -101,14 +113,43 @@ namespace IdleCorp.OOP.Business
             _spawnedHangarsByPositionId[positionId] = Instantiate(hangarToSpawn, spawnPosition);
         }
 
-        private void SpawnVehicle()
+        private void SpawnVehicle(int vehicleId)
         {
-            //TODO
+            var vehiclePrefabBuffer = _entityManager.GetBuffer<PrefabPoolElement>(_vehicleSpawnEntity);
+
+            var randomIndex = Random.Range(0, vehiclePrefabBuffer.Length);
+            var randomPrefabEntity = vehiclePrefabBuffer[randomIndex].Value;
+
+            var newEntity = _entityManager.Instantiate(randomPrefabEntity);
+            _entityManager.SetComponentData(newEntity, new LocalTransform
+            {
+                Position = vehicleSpawnPoint.position,
+                Rotation =  vehicleSpawnPoint.rotation,
+                Scale = 1
+            });
         }
 
         private void SpawnShootingStar()
         {
             //TODO
+        }
+
+        private IEnumerator StartVehicleSpawnRoutine()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(_shippingService.GetVehicleSpawnSecondsInterval());
+
+                var availableVehicles = _shippingService.GetPurchasedVehiclesInfo();
+                if (availableVehicles.Count <= 0)
+                {
+                    yield break;
+                }
+
+                var randomIndex = Random.Range(0, availableVehicles.Count);
+                var selectedVehicleId = availableVehicles.ElementAt(randomIndex).Value;
+                SpawnVehicle(selectedVehicleId);
+            }
         }
 
         private Vector3 GetRandomHangarPosition()
