@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 682458015321298090}
   - component: {fileID: 5093347289673555371}
   m_Layer: 5
-  m_Name: PerSecondText
+  m_Name: MagnitudePerSecondText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -423,6 +423,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1038819801496052269}
   - component: {fileID: 4667751433498309845}
+  - component: {fileID: 150292178908535410}
   m_Layer: 5
   m_Name: EarningsPerSecond
   m_TagString: Untagged
@@ -478,6 +479,20 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &150292178908535410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2282004749773112746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d801d31c31ba4e3f8809c690c826d8b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  earningsNumberText: {fileID: 1901300639751357480}
+  earningsMagnitudeText: {fileID: 682458015321298090}
 --- !u!1 &2581954462269700521
 GameObject:
   m_ObjectHideFlags: 0
@@ -1012,7 +1027,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
+  m_fontSize: 29.45
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1167,7 +1182,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
+  m_fontSize: 29.3
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1407,7 +1422,7 @@ GameObject:
   - component: {fileID: 1901300639751357480}
   - component: {fileID: 2342116106584665929}
   m_Layer: 5
-  m_Name: EarningsText
+  m_Name: EarningsNumberText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
