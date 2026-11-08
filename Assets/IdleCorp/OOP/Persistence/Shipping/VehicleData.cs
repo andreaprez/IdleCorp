@@ -30,9 +30,9 @@ namespace IdleCorp.OOP.Persistence.Shipping
             PositionId = positionId;
         }
 
-        public void SetUSedShippingRate(int robotCount)
+        public void SetUsedShippingRate(int shippingRate)
         {
-            UsedShippingRate = robotCount;
+            UsedShippingRate = shippingRate;
         }
     }
 }

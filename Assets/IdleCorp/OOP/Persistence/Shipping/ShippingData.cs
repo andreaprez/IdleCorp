@@ -34,7 +34,7 @@ namespace IdleCorp.OOP.Persistence.Shipping
         public void ModifyVehicleUsedShippingRate(int positionId, int shippingRate)
         {
             var vehicle = Vehicles.Find(v => v.PositionId == positionId);
-            vehicle.SetUSedShippingRate(shippingRate);
+            vehicle.SetUsedShippingRate(shippingRate);
             SaveData();
         }
     }

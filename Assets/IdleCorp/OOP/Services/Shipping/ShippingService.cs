@@ -4,7 +4,9 @@ using IdleCorp.OOP.Business.Shipping;
 using IdleCorp.OOP.Persistence.Shipping;
 using IdleCorp.OOP.Services.Currencies;
 using IdleCorp.OOP.Services.Events;
+using IdleCorp.OOP.Services.Events.Hangars;
 using IdleCorp.OOP.Services.Events.Shipping;
+using IdleCorp.OOP.Services.Hangars;
 using IdleCorp.OOP.Services.UserData;
 using UnityEngine;
 
@@ -20,6 +22,7 @@ namespace IdleCorp.OOP.Services.Shipping
 
         private EventsService _eventsService;
         private CurrenciesService _currenciesService;
+        private HangarsService _hangarsService;
 
         public ShippingService(ShippingConfig shippingConfig)
         {
@@ -37,23 +40,15 @@ namespace IdleCorp.OOP.Services.Shipping
 
             _eventsService = ServiceLocator.GetService<EventsService>();
             _currenciesService = ServiceLocator.GetService<CurrenciesService>();
+            _hangarsService = ServiceLocator.GetService<HangarsService>();
             
             _eventsService.GetEvent<VehiclePurchasedEvent>().AddListener(HandleVehiclePurchased);
+            _eventsService.GetEvent<ProductionRateChangedEvent>().AddListener(HandleEggProductionRateChanged);
         }
 
         public void Dispose()
         {
             _data = null;
-        }
-
-        public void RedistributeShippingRates(int productionRate)
-        {
-            var vehicleCount = _data.Vehicles.Count;
-            var shippingRatePerVehicle = productionRate / vehicleCount;
-            foreach (var vehicle in _data.Vehicles)
-            {
-                vehicle.UsedShippingRate = shippingRatePerVehicle;
-            }
         }
 
         public int GetUsedShippingRate()
@@ -152,6 +147,8 @@ namespace IdleCorp.OOP.Services.Shipping
                 ModifyVehicleId(positionId, vehicleId);
             else
                 PurchaseVehicle(positionId, vehicleId);
+
+            RedistributeShippingRates();
         }
 
         private void PurchaseVehicle(int positionId, int vehicleId)
@@ -173,6 +170,28 @@ namespace IdleCorp.OOP.Services.Shipping
         private VehicleData GetVehicleByPositionId(int positionId)
         {
             return _data.Vehicles.Find(v => v.PositionId == positionId);
+        }
+
+        private void HandleEggProductionRateChanged(int newProductionRate)
+        {
+            RedistributeShippingRates();
+        }
+
+        private void RedistributeShippingRates()
+        {
+            var productionRate = (float)_hangarsService.GetProductionRate();
+            var maxShippingRate = (float)GetMaxShippingRate();
+            var usedShippingRate = Mathf.Min(productionRate, maxShippingRate);
+
+            foreach (var vehicle in _data.Vehicles)
+            {
+                var vehicleConfig = _shippingConfig.Vehicles.Find(v => v.Id == vehicle.Id);
+
+                var vehicleMaxRatePercentage = vehicleConfig.ShippingRate / maxShippingRate;
+                var vehicleUsedRate = Mathf.FloorToInt(vehicleMaxRatePercentage * usedShippingRate);
+
+                _data.ModifyVehicleUsedShippingRate(vehicle.PositionId, vehicleUsedRate);
+            }
         }
     }
 }

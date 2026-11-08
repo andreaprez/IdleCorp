@@ -126,13 +126,11 @@ namespace IdleCorp.OOP.Business.Shipping
 
         private void HandleEggProductionRateChanged(int newProductionRate)
         {
-            _shippingService.RedistributeShippingRates(newProductionRate);
             UpdateModel();
         }
 
         private void HandleVehiclePurchased(int positionId, int vehicleId)
         {
-            _shippingService.RedistributeShippingRates(_hangarsService.GetProductionRate());
             UpdateModel();
         }
     }
