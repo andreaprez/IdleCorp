@@ -448,6 +448,7 @@ MonoBehaviour:
   robotsConfig: {fileID: 11400000, guid: ace5ab9271290004fba54e849e367a10, type: 2}
   hangarsConfig: {fileID: 11400000, guid: 9cacda947a1e8be4fb51c0f078e52967, type: 2}
   shippingConfig: {fileID: 11400000, guid: ee7e7d2bcb51a744b9a721f8840e618e, type: 2}
+  currenciesConfig: {fileID: 11400000, guid: 0dc5b370c6b6bfe42a9e6e00fefc4811, type: 2}
 --- !u!4 &486452840
 Transform:
   m_ObjectHideFlags: 0

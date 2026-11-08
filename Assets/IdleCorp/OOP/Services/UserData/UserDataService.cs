@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using IdleCorp.OOP.Persistence.Currencies;
 using IdleCorp.OOP.Persistence.Factory;
 using IdleCorp.OOP.Persistence.Hangars;
+using IdleCorp.OOP.Persistence.Player;
 using IdleCorp.OOP.Persistence.Shipping;
+using IdleCorp.OOP.Services.Events;
+using IdleCorp.OOP.Services.Events.Player;
 
 namespace IdleCorp.OOP.Services.UserData
 {
@@ -16,6 +19,8 @@ namespace IdleCorp.OOP.Services.UserData
         {
             _jsonDataHandler = new JsonDataHandler();
             LoadDataModels();
+            
+            ServiceLocator.GetService<EventsService>().GetEvent<SessionEndedEvent>().AddListener(OnSessionEnded);
         }
 
         public void Dispose()
@@ -42,12 +47,18 @@ namespace IdleCorp.OOP.Services.UserData
             LoadData<FactoryData>();
             LoadData<HangarsData>();
             LoadData<ShippingData>();
+            LoadData<PlayerData>();
         }
 
         private void LoadData<T>() where T : IUserData, new()
         {
             var data = _jsonDataHandler.ReadData<T>() ?? new T();
             _dataModels[typeof(T)] = data;
+        }
+
+        private void OnSessionEnded()
+        {
+            GetData<PlayerData>().SetLastSessionTime(DateTime.UtcNow.Ticks);
         }
     }
 }

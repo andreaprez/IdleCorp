@@ -1,3 +1,4 @@
+using IdleCorp.OOP.Persistence.Currencies;
 using IdleCorp.OOP.Persistence.Hangars;
 using IdleCorp.OOP.Persistence.Robots;
 using IdleCorp.OOP.Persistence.Shipping;
@@ -5,6 +6,7 @@ using IdleCorp.OOP.Services;
 using IdleCorp.OOP.Services.UserData;
 using IdleCorp.OOP.Services.Currencies;
 using IdleCorp.OOP.Services.Events;
+using IdleCorp.OOP.Services.Events.Player;
 using IdleCorp.OOP.Services.Factory;
 using IdleCorp.OOP.Services.Hangars;
 using IdleCorp.OOP.Services.Shipping;
@@ -24,6 +26,8 @@ namespace IdleCorp.OOP.Business
         private HangarsConfig hangarsConfig;
         [SerializeField]
         private ShippingConfig shippingConfig;
+        [SerializeField]
+        private CurrenciesConfig currenciesConfig;
 
         private void Awake()
         {
@@ -38,7 +42,12 @@ namespace IdleCorp.OOP.Business
             ServiceLocator.RegisterService<FactoryService>(new FactoryService(robotsConfig));
             ServiceLocator.RegisterService<HangarsService>(new HangarsService(hangarsConfig, robotsConfig));
             ServiceLocator.RegisterService<ShippingService>(new ShippingService(shippingConfig));
-            ServiceLocator.RegisterService<EarningsService>(new EarningsService());
+            ServiceLocator.RegisterService<EarningsService>(new EarningsService(currenciesConfig));
+        }
+
+        private void OnApplicationQuit()
+        {
+            ServiceLocator.GetService<EventsService>().GetEvent<SessionEndedEvent>().Trigger();
         }
     }
 }
