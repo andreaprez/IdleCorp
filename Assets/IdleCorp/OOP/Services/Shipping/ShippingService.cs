@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using IdleCorp.OOP.Business.Shipping;
 using IdleCorp.OOP.Persistence.Shipping;
 using IdleCorp.OOP.Services.Currencies;
@@ -55,15 +56,20 @@ namespace IdleCorp.OOP.Services.Shipping
             }
         }
 
+        public int GetUsedShippingRate()
+        {
+            return _data.Vehicles.Sum(vehicle => vehicle.UsedShippingRate);
+        }
+
         public int GetMaxShippingRate()
         {
-            var maxCapacity = 0;
+            var maxShippingRate = 0;
             foreach (var vehicle in _data.Vehicles)
             {
                 var vehicleConfig = _shippingConfig.Vehicles.Find(v => v.Id == vehicle.Id);
-                maxCapacity += vehicleConfig.ShippingRate;
+                maxShippingRate += vehicleConfig.ShippingRate;
             }
-            return maxCapacity;
+            return maxShippingRate;
         }
 
         public bool IsVehiclePurchased(int positionId)

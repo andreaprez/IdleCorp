@@ -38,6 +38,7 @@ namespace IdleCorp.OOP.Business
             ServiceLocator.RegisterService<FactoryService>(new FactoryService(robotsConfig));
             ServiceLocator.RegisterService<HangarsService>(new HangarsService(hangarsConfig, robotsConfig));
             ServiceLocator.RegisterService<ShippingService>(new ShippingService(shippingConfig));
+            ServiceLocator.RegisterService<EarningsService>(new EarningsService());
         }
     }
 }
